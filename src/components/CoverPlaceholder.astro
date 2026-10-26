@@ -1,0 +1,121 @@
+---
+// Shown in place of a cover image when a project has none yet. It is labelled
+// as a placeholder on screen and for assistive technology; it never stands in
+// for a screenshot.
+import type { Project } from '../data/projects';
+import { categoryById } from '../data/categories';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const voice = project.categories.includes('ai');
+const category = categoryById[project.categories[0]]?.badge ?? '';
+
+// A fixed, hand-tuned waveform so every build draws the same shape.
+const bars = Array.from({ length: 56 }, (_, i) => {
+  const t = i / 55;
+  const envelope = Math.sin(Math.PI * t) ** 0.8;
+  const ripple = 0.55 + 0.45 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * 0.45));
+  return Math.max(0.08, envelope * ripple);
+});
+---
+
+<div class="cover-placeholder" role="img" aria-label={`Placeholder visual for ${project.name}. Screenshots or a demo will be added later.`}>
+  {
+    voice && (
+      <svg class="wave" viewBox="0 0 560 200" preserveAspectRatio="none" aria-hidden="true">
+        {bars.map((h, i) => (
+          <rect
+            x={i * 10 + 2}
+            y={100 - h * 92}
+            width="5"
+            height={h * 184}
+            rx="2.5"
+            style={`--d:${(i % 9) * 90}ms`}
+            class={i % 7 === 3 ? 'alt' : undefined}
+          />
+        ))}
+      </svg>
+    )
+  }
+  <div class="cover-placeholder-text">
+    <span class="cover-placeholder-kind">{category}</span>
+    <strong>{voice ? 'Voice agents, connected to real systems' : project.name}</strong>
+    <span class="cover-placeholder-note">Placeholder visual · screenshots, demo or audio to follow</span>
+  </div>
+</div>
+
+<style>
+  .cover-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(18px, 5%, 40px);
+    background: var(--night);
+    color: var(--night-ink);
+    overflow: hidden;
+  }
+
+  .wave {
+    width: 100%;
+    height: 52%;
+    margin-top: 2%;
+  }
+
+  .wave rect {
+    fill: var(--accent);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .wave rect.alt {
+    fill: var(--accent-2);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .wave rect {
+      animation: pulse 2.4s var(--ease-out) infinite alternate;
+      animation-delay: var(--d);
+      animation-play-state: paused;
+    }
+
+    :global(.project-card:hover) .wave rect,
+    :global(.project-hero) .wave rect {
+      animation-play-state: running;
+    }
+  }
+
+  @keyframes pulse {
+    to {
+      transform: scaleY(0.55);
+    }
+  }
+
+  .cover-placeholder-text {
+    display: grid;
+    gap: 6px;
+  }
+
+  .cover-placeholder-kind {
+    color: var(--night-accent);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+  }
+
+  .cover-placeholder strong {
+    max-width: 22ch;
+    font-size: clamp(1.25rem, 2.6vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .cover-placeholder-note {
+    color: var(--night-muted);
+    font-size: var(--fs-xs);
+  }
+</style>

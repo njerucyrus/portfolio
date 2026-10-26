@@ -1,0 +1,196 @@
+---
+import type { Project } from '../data/projects';
+import { categoryById } from '../data/categories';
+import { url, section } from '../lib/url';
+import ProjectMedia from './ProjectMedia.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  project: Project;
+  headingLevel?: 'h2' | 'h3';
+  eager?: boolean;
+}
+
+const { project, headingLevel = 'h3', eager = false } = Astro.props;
+const Heading = headingLevel;
+const detail = url(`projects/${project.slug}/`);
+const primary = project.links[0];
+const external = primary && primary.kind !== 'contact' ? primary : null;
+const contact = primary?.kind === 'contact' ? primary : null;
+const externalLabel = external?.kind === 'google-play' ? 'Google Play' : 'Live site';
+---
+
+<article class="project-card">
+  <ProjectMedia project={project} loading={eager ? 'eager' : 'lazy'} />
+  <div class="card-body">
+    <div class="card-meta">
+      {project.categories.map((id) => <span class="badge">{categoryById[id].badge}</span>)}
+    </div>
+    <Heading class="card-title">
+      <a class="card-link" href={detail}>{project.name}</a>
+    </Heading>
+    <p class="card-kind">{project.kind}</p>
+    <p class="card-summary">{project.summary}</p>
+    <ul class="tags" aria-label="Technologies">
+      {project.tags.map((t) => <li class="tag">{t}</li>)}
+    </ul>
+    <div class="card-actions">
+      <span class="card-cta" aria-hidden="true">
+        Explore case study
+        <Icon name="arrow-right" size={18} />
+      </span>
+      {
+        external && (
+          <a class="card-external" href={external.href} target="_blank" rel="noopener noreferrer">
+            {external.kind === 'google-play' ? <Icon name="google-play" size={15} /> : <Icon name="arrow-up-right" size={16} />}
+            {externalLabel}
+            <span class="sr-only">for {project.name} (opens in a new tab)</span>
+          </a>
+        )
+      }
+      {
+        contact && (
+          <a class="card-external" href={section('contact')}>
+            <Icon name="mail" size={16} />
+            {contact.label}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+    outline: 1px solid rgba(16, 24, 40, 0.06);
+    transition:
+      box-shadow 400ms var(--ease-out),
+      transform 400ms var(--ease-out);
+  }
+
+  .project-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+  }
+
+  .project-card:hover :global(.pm-window) {
+    transform: translateY(-10px);
+  }
+
+  .project-card:hover :global(.pm-plain img) {
+    transform: scale(1.035);
+  }
+
+  .project-card:has(.card-link:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 12px;
+    padding: clamp(20px, 2.4vw, 28px);
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .card-title {
+    margin-top: 6px;
+    font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+    letter-spacing: -0.035em;
+  }
+
+  .card-link {
+    text-decoration: none;
+  }
+
+  .card-link:focus-visible {
+    outline: none;
+  }
+
+  /* The title link covers the whole card; other links sit above it. */
+  .card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .card-kind {
+    margin-top: -6px;
+    color: var(--muted);
+    font-size: var(--fs-small);
+  }
+
+  .card-summary {
+    color: var(--ink-2);
+    font-size: var(--fs-small);
+    line-height: 1.6;
+  }
+
+  .tags {
+    margin-top: 4px;
+  }
+
+  .card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 12px;
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-text);
+    font-size: var(--fs-small);
+    font-weight: 600;
+  }
+
+  .card-cta :global(svg) {
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .project-card:hover .card-cta :global(svg) {
+    transform: translateX(4px);
+  }
+
+  .card-external {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--ink);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color var(--dur) var(--ease-out);
+  }
+
+  .card-external:hover {
+    background: #e4e7ef;
+  }
+</style>

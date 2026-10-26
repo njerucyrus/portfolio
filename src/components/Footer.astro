@@ -1,0 +1,149 @@
+---
+import { site, nav } from '../config/site';
+import { url, section } from '../lib/url';
+import Icon from './Icon.astro';
+
+interface Props {
+  home?: boolean;
+}
+
+const { home = false } = Astro.props;
+const year = new Date().getFullYear();
+const links = [
+  site.email && { label: 'Email', href: `mailto:${site.email}`, external: false },
+  site.social.github && { label: 'GitHub', href: site.social.github, external: true },
+  site.social.linkedin && { label: 'LinkedIn', href: site.social.linkedin, external: true },
+].filter(Boolean) as { label: string; href: string; external: boolean }[];
+---
+
+<footer class="site-footer on-dark">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-intro">
+        <p class="footer-role">{site.role}</p>
+        <p class="footer-note">Web applications, Android apps, AI agents and voice automation.</p>
+      </div>
+      <nav aria-label="Footer">
+        <h2 class="footer-heading">Navigate</h2>
+        <ul role="list">
+          {
+            nav.map((item) => (
+              <li>
+                <a href={home ? `#${item.hash}` : section(item.hash)}>{item.label}</a>
+              </li>
+            ))
+          }
+          <li><a href={url('projects/')}>All projects</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="footer-heading">Elsewhere</h2>
+        <ul role="list">
+          {
+            links.map((link) => (
+              <li>
+                <a href={link.href} {...(link.external ? { target: '_blank', rel: 'me noopener noreferrer' } : {})}>
+                  {link.label}
+                  {link.external && <Icon name="arrow-up-right" size={14} />}
+                  {link.external && <span class="sr-only">(opens in a new tab)</span>}
+                </a>
+              </li>
+            ))
+          }
+          <li><a href={home ? '#contact' : section('contact')}>Send a message</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer-name" aria-hidden="true">{site.name}</p>
+
+    <div class="footer-base">
+      <p>© <span data-year>{year}</span> {site.name}. All rights reserved.</p>
+      <p>Designed and built with care.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-year]').forEach((el) => (el.textContent = String(new Date().getFullYear())));
+</script>
+
+<style>
+  .site-footer {
+    padding-top: clamp(64px, 8vw, 112px);
+    padding-bottom: 32px;
+    overflow: hidden;
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: 40px;
+  }
+
+  @media (min-width: 800px) {
+    .footer-grid {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  .footer-role {
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .footer-note {
+    max-width: 30ch;
+    margin-top: 8px;
+    color: var(--night-muted);
+  }
+
+  .footer-heading {
+    margin-bottom: 14px;
+    color: var(--night-muted);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .site-footer ul {
+    display: grid;
+    gap: 4px;
+    list-style: none;
+  }
+
+  .site-footer li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    text-decoration: none;
+  }
+
+  .site-footer li a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-name {
+    margin: clamp(56px, 8vw, 104px) 0 0;
+    font-size: clamp(3.5rem, 15.5vw, 15rem);
+    font-weight: 650;
+    letter-spacing: -0.065em;
+    line-height: 0.95;
+    white-space: nowrap;
+    color: var(--night-3);
+    user-select: none;
+  }
+
+  .footer-base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding-top: 28px;
+    margin-top: 28px;
+    border-top: 1px solid var(--night-border);
+    color: var(--night-muted);
+    font-size: var(--fs-small);
+  }
+</style>

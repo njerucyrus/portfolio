@@ -1,0 +1,897 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectMedia from '../../components/ProjectMedia.astro';
+import ProjectImage from '../../components/ProjectImage.astro';
+import Icon from '../../components/Icon.astro';
+import { projects, projectBySlug, type Project, type Shot } from '../../data/projects';
+import { categoryById } from '../../data/categories';
+import { resolveImage } from '../../lib/images';
+import { url, section, absolute } from '../../lib/url';
+import { site } from '../../config/site';
+
+export function getStaticPaths() {
+  return projects.map((project, i) => ({
+    params: { slug: project.slug },
+    props: {
+      project,
+      prev: projects[(i - 1 + projects.length) % projects.length],
+      next: projects[(i + 1) % projects.length],
+    },
+  }));
+}
+
+interface Props {
+  project: Project;
+  prev: Project;
+  next: Project;
+}
+
+const { project, prev, next } = Astro.props;
+
+// Gallery: websites get a two-column grid of equal 16:10 cells; apps get rows of
+// tall phone screens with wide tablet screens below.
+type Item = Shot & { full: string | null; wide: boolean };
+const items: Item[] = project.gallery.map((shot) => {
+  const img = resolveImage(shot.src);
+  return { ...shot, full: img?.src ?? null, wide: img?.width && img?.height ? img.width > img.height : shot.device === 'desktop' };
+});
+const webLayout = items.some((i) => i.device === 'desktop');
+// An odd number of website shots would leave a gap, so the first one runs wide.
+const leadWide = webLayout && items.length % 2 === 1;
+const tall = webLayout ? [] : items.filter((i) => !i.wide);
+const wide = webLayout ? [] : items.filter((i) => i.wide);
+
+const linkIcon = (kind: string) => (kind === 'google-play' ? 'google-play' : kind === 'contact' ? 'mail' : 'arrow-up-right');
+const linkHref = (href: string) => (href.startsWith('#') ? section(href.slice(1)) : href);
+const isExternal = (href: string) => /^https?:/.test(href);
+
+const ogPath = `images/og/${project.slug}.jpg`;
+const ogImage = fs.existsSync(path.join(process.cwd(), 'public', ogPath)) ? ogPath : undefined;
+const live = project.links.find((l) => isExternal(l.href));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': project.categories.includes('mobile') ? 'SoftwareApplication' : 'CreativeWork',
+  name: project.name,
+  description: project.summary,
+  url: absolute(`projects/${project.slug}/`, Astro.site),
+  ...(project.categories.includes('mobile') ? { operatingSystem: 'Android', applicationCategory: 'MobileApplication' } : {}),
+  ...(live ? { sameAs: live.href } : {}),
+  ...(ogImage ? { image: absolute(ogImage, Astro.site) } : {}),
+  creator: { '@type': 'Person', name: site.name, url: absolute('', Astro.site) },
+};
+---
+
+<BaseLayout title={project.name} description={project.summary} image={ogImage} imageAlt={project.cover?.alt} jsonLd={jsonLd}>
+  <article class="project">
+    <header class="container project-head">
+      <a class="back-link" href={url('projects/')}>
+        <Icon name="arrow-left" size={18} />
+        All projects
+      </a>
+      <div class="project-meta">
+        {project.categories.map((id) => <span class="badge">{categoryById[id].badge}</span>)}
+        <span class="project-kind">{project.kind}</span>
+      </div>
+      <h1 class="project-title">{project.name}</h1>
+      <p class="project-summary">{project.summary}</p>
+      <div class="project-actions">
+        {
+          project.links.map((link, i) => (
+            <a
+              class:list={['btn', i === 0 ? 'btn-primary' : 'btn-secondary']}
+              href={linkHref(link.href)}
+              {...(isExternal(link.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              {link.kind === 'google-play' && <Icon name="google-play" size={16} />}
+              {link.label}
+              {link.kind !== 'google-play' && <Icon name={linkIcon(link.kind)} />}
+              {isExternal(link.href) && <span class="sr-only">(opens in a new tab)</span>}
+            </a>
+          ))
+        }
+      </div>
+    </header>
+
+    <div class="container">
+      <ProjectMedia project={project} loading="eager" fetchpriority="high" sizes="(min-width: 1320px) 1240px, 100vw" class="project-hero" />
+    </div>
+
+    <div class="container project-body">
+      <div class="project-main">
+        <section aria-labelledby="overview">
+          <h2 id="overview">Overview</h2>
+          {project.overview.map((p) => <p>{p}</p>)}
+        </section>
+
+        {
+          project.purpose && (
+            <section aria-labelledby="purpose">
+              <h2 id="purpose">The purpose</h2>
+              <p>{project.purpose}</p>
+            </section>
+          )
+        }
+
+        <section aria-labelledby="features">
+          <h2 id="features">{project.slug === 'ai-voice-agents' ? 'What I build' : 'Key features'}</h2>
+          <ul class="feature-list" role="list">
+            {
+              project.features.map((f) => (
+                <li>
+                  <span class="feature-tick" aria-hidden="true">
+                    <Icon name="check" size={16} />
+                  </span>
+                  {f}
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        {
+          project.role && project.role.length > 0 && (
+            <section aria-labelledby="role">
+              <h2 id="role">My contribution</h2>
+              {project.role.map((p) => <p>{p}</p>)}
+            </section>
+          )
+        }
+
+        {
+          project.implementation && project.implementation.length > 0 && (
+            <section aria-labelledby="implementation">
+              <h2 id="implementation">Implementation</h2>
+              <ul class="plain-list" role="list">
+                {project.implementation.map((p) => <li>{p}</li>)}
+              </ul>
+            </section>
+          )
+        }
+
+        {project.note && <p class="project-note">{project.note}</p>}
+      </div>
+
+      <aside class="project-aside" aria-label="Project details">
+        <dl class="facts">
+          {
+            project.facts.map((f) => (
+              <div>
+                <dt>{f.label}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))
+          }
+          <div>
+            <dt>Technology</dt>
+            <dd>
+              <ul class="tags" role="list">
+                {project.stack.map((t) => <li class="tag">{t}</li>)}
+              </ul>
+            </dd>
+          </div>
+        </dl>
+        {
+          project.sources.length > 0 && (
+            <p class="sources">
+              Described from {project.sources.map((s, i) => (<><a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>{i < project.sources.length - 1 ? ', ' : '.'}</>))}
+            </p>
+          )
+        }
+      </aside>
+    </div>
+
+    {
+      items.length > 0 && (
+        <section class="container project-gallery" aria-labelledby="screens">
+          <h2 id="screens">Screenshots</h2>
+          <p class="gallery-hint">Select a screenshot to see it full size.</p>
+
+          {webLayout && (
+            <ul class="shots shots-web" role="list">
+              {items.map((shot, i) => (
+                <li class:list={[i === 0 && leadWide && 'shot-lead']}>
+                  <figure>
+                    <a class="shot-cell" href={shot.full ?? undefined} data-lightbox data-caption={shot.caption ?? shot.alt} style={`--ground: ${project.ground}`}>
+                      {shot.device === 'desktop' ? (
+                        <div class="browser shot-browser">
+                          <div class="browser-bar" aria-hidden="true">
+                            <span class="browser-dots">
+                              <span />
+                              <span />
+                              <span />
+                            </span>
+                            <span class="browser-host">{shot.host ?? project.cover?.host}</span>
+                          </div>
+                          <div class="browser-view">
+                            <ProjectImage src={shot.src} alt={shot.alt} label={project.name} sizes={i === 0 && leadWide ? '(min-width: 1320px) 1240px, 100vw' : '(min-width: 1000px) 600px, 100vw'} />
+                          </div>
+                        </div>
+                      ) : (
+                        <div class="phone shot-phone">
+                          <ProjectImage src={shot.src} alt={shot.alt} label={project.name} sizes="240px" />
+                        </div>
+                      )}
+                      <span class="shot-zoom" aria-hidden="true">
+                        <Icon name="expand" size={18} />
+                      </span>
+                    </a>
+                    {shot.caption && <figcaption>{shot.caption}</figcaption>}
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {tall.length > 0 && (
+            <ul class="shots shots-tall" role="list">
+              {tall.map((shot) => (
+                <li>
+                  <figure>
+                    <a class:list={['shot-plain', shot.device === 'phone' && 'phone']} href={shot.full ?? undefined} data-lightbox data-caption={shot.caption ?? shot.alt}>
+                      <ProjectImage src={shot.src} alt={shot.alt} label={project.name} sizes="(min-width: 1000px) 280px, 45vw" />
+                    </a>
+                    {shot.caption && <figcaption>{shot.caption}</figcaption>}
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {wide.length > 0 && (
+            <ul class="shots shots-wide" role="list">
+              {wide.map((shot) => (
+                <li>
+                  <figure>
+                    <a class:list={['shot-plain', shot.device === 'tablet' && 'tablet']} href={shot.full ?? undefined} data-lightbox data-caption={shot.caption ?? shot.alt}>
+                      <ProjectImage src={shot.src} alt={shot.alt} label={project.name} sizes="(min-width: 1000px) 600px, 100vw" />
+                    </a>
+                    {shot.caption && <figcaption>{shot.caption}</figcaption>}
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )
+    }
+
+    {
+      project.related && project.related.length > 0 && (
+        <section class="container related" aria-labelledby="related">
+          <h2 id="related">Related</h2>
+          <ul class="related-list" role="list">
+            {project.related
+              .filter((r) => projectBySlug[r.slug])
+              .map((r) => {
+                const other = projectBySlug[r.slug];
+                return (
+                  <li>
+                    <a class="related-card" href={url(`projects/${other.slug}/`)}>
+                      <span class="related-name">{other.name}</span>
+                      <span class="related-note">{r.note}</span>
+                      <Icon name="arrow-right" class="related-arrow" />
+                    </a>
+                  </li>
+                );
+              })}
+          </ul>
+        </section>
+      )
+    }
+
+    <nav class="container pager" aria-label="More projects">
+      <a class="pager-link" href={url(`projects/${prev.slug}/`)} rel="prev">
+        <span class="pager-dir">
+          <Icon name="arrow-left" size={18} />
+          Previous
+        </span>
+        <span class="pager-name">{prev.name}</span>
+      </a>
+      <a class="pager-link pager-next" href={url(`projects/${next.slug}/`)} rel="next">
+        <span class="pager-dir">
+          Next
+          <Icon name="arrow-right" size={18} />
+        </span>
+        <span class="pager-name">{next.name}</span>
+      </a>
+    </nav>
+
+    <section class="cta-band" aria-labelledby="cta-title">
+      <div class="container cta-inner">
+        <h2 id="cta-title">Have an idea worth building?</h2>
+        <a class="btn btn-primary" href={section('contact')}>
+          Let’s talk
+          <Icon name="arrow-right" />
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <dialog class="lightbox" aria-label={`${project.name} screenshots`} data-lightbox-dialog>
+    <div class="lightbox-frame">
+      <img alt="" data-lightbox-img />
+      <p class="lightbox-caption" data-lightbox-caption></p>
+    </div>
+    <button class="lightbox-btn lightbox-close" type="button" aria-label="Close" data-lightbox-close>
+      <Icon name="close" size={22} />
+    </button>
+    <button class="lightbox-btn lightbox-prev" type="button" aria-label="Previous screenshot" data-lightbox-prev>
+      <Icon name="chevron-left" size={24} />
+    </button>
+    <button class="lightbox-btn lightbox-next" type="button" aria-label="Next screenshot" data-lightbox-next>
+      <Icon name="chevron-right" size={24} />
+    </button>
+  </dialog>
+</BaseLayout>
+
+<script>
+  import { initLightbox } from '../../scripts/lightbox';
+  initLightbox();
+</script>
+
+<style>
+  .project-head {
+    padding-top: clamp(32px, 5vw, 72px);
+    padding-bottom: clamp(32px, 4vw, 56px);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    margin-bottom: clamp(24px, 4vw, 48px);
+    color: var(--ink-2);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--ink);
+  }
+
+  .back-link:hover :global(svg) {
+    transform: translateX(-3px);
+  }
+
+  .back-link :global(svg) {
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .project-kind {
+    margin-left: 4px;
+    color: var(--muted);
+    font-size: var(--fs-small);
+  }
+
+  .project-title {
+    max-width: 18ch;
+    margin-top: 20px;
+    font-size: var(--fs-display);
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+
+  .project-summary {
+    max-width: 44rem;
+    margin-top: 24px;
+    color: var(--ink-2);
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+  }
+
+  .project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  :global(.project-hero) {
+    border-radius: var(--radius-lg);
+  }
+
+  .project-body {
+    display: grid;
+    gap: 48px;
+    padding-top: clamp(56px, 7vw, 104px);
+  }
+
+  @media (min-width: 1000px) {
+    .project-body {
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 96px;
+      align-items: start;
+    }
+  }
+
+  .project-main {
+    display: grid;
+    gap: clamp(40px, 5vw, 64px);
+    max-width: 44rem;
+  }
+
+  .project-main section {
+    display: grid;
+    gap: 16px;
+  }
+
+  .project-main h2,
+  .project-gallery h2,
+  .related h2 {
+    font-size: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+    letter-spacing: -0.035em;
+  }
+
+  .project-main p {
+    color: var(--ink);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  .feature-list {
+    display: grid;
+    gap: 14px;
+    list-style: none;
+  }
+
+  .feature-list li {
+    display: flex;
+    gap: 14px;
+    line-height: 1.6;
+  }
+
+  .feature-tick {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 26px;
+    height: 26px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+  }
+
+  .plain-list {
+    display: grid;
+    gap: 10px;
+    padding-left: 1.2em;
+    color: var(--ink-2);
+  }
+
+  .project-note {
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+    color: var(--ink) !important;
+    font-size: var(--fs-small) !important;
+  }
+
+  .project-aside {
+    display: grid;
+    gap: 24px;
+  }
+
+  @media (min-width: 1000px) {
+    .project-aside {
+      position: sticky;
+      top: calc(var(--header-h) + 32px);
+    }
+  }
+
+  .facts {
+    display: grid;
+    margin: 0;
+    padding: 8px 24px;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+
+  .facts > div {
+    display: grid;
+    gap: 6px;
+    padding: 16px 0;
+  }
+
+  .facts > div + div {
+    border-top: 1px solid var(--border);
+  }
+
+  .facts dt {
+    color: var(--muted);
+    font-size: var(--fs-xs);
+    font-weight: 500;
+  }
+
+  .facts dd {
+    margin: 0;
+    font-size: var(--fs-small);
+    font-weight: 500;
+  }
+
+  .facts .tags {
+    margin-top: 4px;
+  }
+
+  .sources {
+    color: var(--muted);
+    font-size: var(--fs-xs);
+  }
+
+  .project-gallery {
+    padding-top: clamp(72px, 9vw, 136px);
+  }
+
+  .gallery-hint {
+    margin: 8px 0 32px;
+    color: var(--muted);
+    font-size: var(--fs-small);
+  }
+
+  .shots {
+    display: grid;
+    gap: clamp(16px, 2vw, 28px);
+    list-style: none;
+  }
+
+  .shots + .shots {
+    margin-top: clamp(24px, 3vw, 40px);
+  }
+
+  .shots figure {
+    margin: 0;
+  }
+
+  .shots figcaption {
+    margin-top: 12px;
+    color: var(--ink-2);
+    font-size: var(--fs-small);
+  }
+
+  .shots a {
+    position: relative;
+    display: block;
+    cursor: zoom-in;
+  }
+
+  @media (min-width: 760px) {
+    .shots-web,
+    .shots-wide {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .shot-lead {
+      grid-column: 1 / -1;
+    }
+
+    .shot-lead .shot-phone {
+      width: 15%;
+    }
+  }
+
+  .shot-cell {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--ground);
+  }
+
+  .shot-browser {
+    position: absolute;
+    top: 7%;
+    left: 6%;
+    right: 6%;
+    bottom: -5%;
+    transition: transform 500ms var(--ease-out);
+  }
+
+  .shot-phone {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 30%;
+    translate: -50% 0;
+    transition: transform 500ms var(--ease-out);
+  }
+
+  .shot-cell:hover .shot-browser,
+  .shot-cell:hover .shot-phone {
+    transform: translateY(-8px);
+  }
+
+  .shot-zoom {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(16, 24, 40, 0.78);
+    color: #fff;
+    opacity: 0;
+    transform: scale(0.9);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+  }
+
+  .shot-cell:hover .shot-zoom,
+  .shot-cell:focus-visible .shot-zoom {
+    opacity: 1;
+    transform: none;
+  }
+
+  .shots-tall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 700px) {
+    .shots-tall {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .shots-tall {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .shot-plain {
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    transition: transform 400ms var(--ease-out);
+  }
+
+  .shot-plain.phone {
+    border-radius: 13% / 6%;
+    background: #05070a;
+  }
+
+  .shot-plain.tablet {
+    padding: 1.6%;
+    border-radius: 24px;
+    background: #05070a;
+  }
+
+  .shot-plain.tablet :global(img) {
+    border-radius: 12px;
+  }
+
+  .shot-plain:hover {
+    transform: translateY(-4px);
+  }
+
+  .related {
+    padding-top: clamp(72px, 9vw, 136px);
+  }
+
+  .related-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 24px;
+    list-style: none;
+  }
+
+  @media (min-width: 760px) {
+    .related-list {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+  }
+
+  .related-card {
+    position: relative;
+    display: grid;
+    gap: 4px;
+    height: 100%;
+    padding: 22px 56px 22px 24px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--border);
+    text-decoration: none;
+    transition: box-shadow var(--dur) var(--ease-out);
+  }
+
+  .related-card:hover {
+    box-shadow:
+      inset 0 0 0 1px var(--border-strong),
+      var(--shadow-hover);
+  }
+
+  .related-name {
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .related-note {
+    color: var(--muted);
+    font-size: var(--fs-small);
+  }
+
+  .related-card :global(.related-arrow) {
+    position: absolute;
+    top: 50%;
+    right: 22px;
+    translate: 0 -50%;
+    color: var(--accent);
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .related-card:hover :global(.related-arrow) {
+    transform: translateX(4px);
+  }
+
+  .pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding-top: clamp(72px, 9vw, 136px);
+  }
+
+  .pager-link {
+    display: grid;
+    gap: 6px;
+    padding: clamp(20px, 3vw, 32px);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--border);
+    text-decoration: none;
+    transition: box-shadow var(--dur) var(--ease-out);
+  }
+
+  .pager-link:hover {
+    box-shadow:
+      inset 0 0 0 1px var(--border-strong),
+      var(--shadow-hover);
+  }
+
+  .pager-next {
+    text-align: right;
+    justify-items: end;
+  }
+
+  .pager-dir {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: var(--fs-small);
+  }
+
+  .pager-name {
+    font-size: clamp(1.0625rem, 0.9rem + 0.8vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  .cta-band {
+    margin-top: clamp(72px, 9vw, 136px);
+    padding-block: clamp(56px, 7vw, 96px);
+    background: var(--surface);
+  }
+
+  .cta-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .cta-inner h2 {
+    max-width: 16ch;
+    font-size: var(--fs-h2);
+    letter-spacing: -0.045em;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(5, 8, 18, 0.94);
+    color: #fff;
+  }
+
+  .lightbox::backdrop {
+    background: transparent;
+  }
+
+  .lightbox[open] {
+    display: grid;
+    place-items: center;
+  }
+
+  .lightbox-frame {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    max-width: calc(100vw - 32px);
+    padding: 64px 16px 24px;
+  }
+
+  .lightbox-frame img {
+    max-width: min(100%, 1400px);
+    max-height: calc(100dvh - 160px);
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    object-fit: contain;
+  }
+
+  .lightbox-caption {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--fs-small);
+    text-align: center;
+  }
+
+  .lightbox-btn {
+    position: fixed;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    transition: background-color var(--dur) var(--ease-out);
+  }
+
+  .lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .lightbox-btn:focus-visible {
+    outline-color: #fff;
+  }
+
+  .lightbox-close {
+    top: 16px;
+    right: 16px;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    top: 50%;
+    translate: 0 -50%;
+  }
+
+  .lightbox-prev {
+    left: 16px;
+  }
+
+  .lightbox-next {
+    right: 16px;
+  }
+
+  @media (max-width: 700px) {
+    .lightbox-prev,
+    .lightbox-next {
+      top: auto;
+      bottom: 16px;
+      translate: none;
+    }
+  }
+</style>

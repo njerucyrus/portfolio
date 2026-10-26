@@ -1,0 +1,293 @@
+---
+import { site } from '../../config/site';
+import Icon from '../Icon.astro';
+import Avatar from '../Avatar.astro';
+---
+
+<section id="contact" class="section contact on-dark" aria-labelledby="contact-title">
+  <div class="container contact-grid">
+    <div class="contact-copy">
+      <h2 id="contact-title" class="section-title" data-reveal>Have an idea worth building?</h2>
+      <p class="contact-lead" data-reveal style="--i: 1">
+        Whether you’re planning a web platform, a mobile application, or an AI-powered solution, let’s discuss how to bring it to life.
+      </p>
+      <div class="signature" data-reveal style="--i: 2">
+        <Avatar size={48} decorative />
+        <p><strong>{site.name}</strong><span>{site.role}</span></p>
+      </div>
+      <div class="contact-links" data-reveal style="--i: 2">
+        {
+          site.email && (
+            <a class="btn btn-primary" href={`mailto:${site.email}`}>
+              <Icon name="mail" />
+              {site.email}
+            </a>
+          )
+        }
+        {
+          site.social.github && (
+            <a class="btn btn-secondary" href={site.social.github} target="_blank" rel="me noopener noreferrer">
+              <Icon name="github" size={18} />
+              GitHub
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          )
+        }
+        {
+          site.social.linkedin && (
+            <a class="btn btn-secondary" href={site.social.linkedin} target="_blank" rel="me noopener noreferrer">
+              LinkedIn
+              <Icon name="arrow-up-right" />
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          )
+        }
+      </div>
+    </div>
+
+    <form
+      class="contact-form"
+      novalidate
+      data-contact-form
+      data-endpoint={site.contactFormEndpoint || undefined}
+      data-email={site.email || undefined}
+      data-github={site.social.github || undefined}
+      data-reveal
+      style="--i: 1"
+    >
+      <h3 class="form-title">Send a message</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="100" aria-describedby="cf-name-error" />
+          <p class="field-error" id="cf-name-error" data-error-for="name"></p>
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="200" aria-describedby="cf-email-error" />
+          <p class="field-error" id="cf-email-error" data-error-for="email"></p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="cf-subject">Subject</label>
+        <input id="cf-subject" name="subject" type="text" required minlength="3" maxlength="150" aria-describedby="cf-subject-error" />
+        <p class="field-error" id="cf-subject-error" data-error-for="subject"></p>
+      </div>
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="6" required minlength="20" maxlength="5000" aria-describedby="cf-message-hint cf-message-error"></textarea>
+        <p class="field-hint" id="cf-message-hint">A few lines on what you want to build and when.</p>
+        <p class="field-error" id="cf-message-error" data-error-for="message"></p>
+      </div>
+      <div class="hp" aria-hidden="true">
+        <label for="cf-company">Leave this empty</label>
+        <input id="cf-company" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit" data-submit>
+          <span data-submit-label>Send message</span>
+          <Icon name="arrow-right" />
+        </button>
+      </div>
+      <div class="form-status" role="status" aria-live="polite" data-status hidden></div>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { initContactForm } from '../../scripts/contact';
+  initContactForm();
+</script>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: clamp(48px, 6vw, 96px);
+  }
+
+  @media (min-width: 1000px) {
+    .contact-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      align-items: start;
+    }
+  }
+
+  .contact-copy .section-title {
+    max-width: 12ch;
+  }
+
+  .contact-lead {
+    max-width: 32rem;
+    margin-top: 24px;
+    color: var(--night-muted);
+    font-size: var(--fs-lead);
+  }
+
+  .signature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 32px;
+  }
+
+  .signature p {
+    display: grid;
+    line-height: 1.35;
+  }
+
+  .signature span {
+    color: var(--night-muted);
+    font-size: var(--fs-small);
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .contact-form {
+    display: grid;
+    gap: 20px;
+    padding: clamp(24px, 3.5vw, 44px);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  .contact-form :focus-visible {
+    outline-color: var(--accent);
+  }
+
+  .form-title {
+    font-size: var(--fs-h3);
+    letter-spacing: -0.03em;
+  }
+
+  .field-row {
+    display: grid;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .field-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .field {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+  }
+
+  label {
+    font-size: var(--fs-small);
+    font-weight: 600;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    min-height: 50px;
+    padding: 12px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    font-size: 1rem;
+    line-height: 1.5;
+    transition:
+      border-color var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+
+  input:hover,
+  textarea:hover {
+    border-color: #98a2b3;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(99, 91, 255, 0.16);
+  }
+
+  [aria-invalid='true'] {
+    border-color: var(--danger);
+  }
+
+  [aria-invalid='true']:focus {
+    box-shadow: 0 0 0 4px rgba(217, 45, 32, 0.14);
+  }
+
+  .field-hint {
+    color: var(--muted);
+    font-size: var(--fs-xs);
+  }
+
+  .field-error {
+    color: var(--danger);
+    font-size: var(--fs-xs);
+    font-weight: 500;
+  }
+
+  .field-error:empty {
+    display: none;
+  }
+
+  .hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .form-actions .btn {
+      width: auto;
+    }
+  }
+
+  .btn[aria-busy='true'] {
+    opacity: 0.75;
+    cursor: progress;
+  }
+
+  .form-status {
+    padding: 16px 18px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    color: var(--ink);
+    font-size: var(--fs-small);
+  }
+
+  .form-status[data-tone='success'] {
+    background: #ecfdf3;
+    color: var(--success);
+  }
+
+  .form-status[data-tone='error'] {
+    background: #fef3f2;
+    color: #b42318;
+  }
+
+  .form-status :global(a) {
+    font-weight: 600;
+  }
+
+  .form-status :global(.btn) {
+    margin-top: 12px;
+  }
+</style>

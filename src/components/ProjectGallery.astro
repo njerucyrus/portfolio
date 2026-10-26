@@ -1,0 +1,180 @@
+---
+// The filterable project grid used on the home page and on /projects/.
+import { projects } from '../data/projects';
+import { categories } from '../data/categories';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { headingLevel = 'h3' } = Astro.props;
+const counts = Object.fromEntries(categories.map((c) => [c.id, projects.filter((p) => p.categories.includes(c.id)).length]));
+const filters = [{ id: 'all', label: 'All Projects', count: projects.length }, ...categories.map((c) => ({ id: c.id, label: c.label, count: counts[c.id] }))];
+---
+
+<div class="gallery" data-gallery>
+  <div class="filters" role="group" aria-label="Filter projects by category" data-filters hidden>
+    <span class="filter-indicator" aria-hidden="true"></span>
+    {
+      filters.map((f) => (
+        <button type="button" class="filter" data-filter={f.id} aria-pressed={f.id === 'all' ? 'true' : 'false'}>
+          {f.label}
+          <span class="filter-count">{f.count}</span>
+        </button>
+      ))
+    }
+  </div>
+  <p class="filter-status" aria-live="polite" data-filter-status>Showing all {projects.length} projects</p>
+
+  <ul class="project-grid" role="list">
+    {
+      projects.map((project, i) => (
+        <li class="project-item" data-categories={project.categories.join(' ')} data-reveal style={`--i: ${i % 2}`}>
+          <ProjectCard project={project} headingLevel={headingLevel} />
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="empty-state" data-empty hidden>
+    <p><strong>No projects in this category yet.</strong> New work is added as it ships.</p>
+    <button type="button" class="btn btn-secondary btn-sm" data-filter-reset>Show all projects</button>
+  </div>
+</div>
+
+<script>
+  import { initGalleries } from '../scripts/filters';
+  initGalleries();
+</script>
+
+<style>
+  .filters {
+    position: relative;
+    display: flex;
+    gap: 4px;
+    width: fit-content;
+    max-width: 100%;
+    padding: 5px;
+    margin-bottom: 14px;
+    overflow-x: auto;
+    border-radius: 999px;
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--border);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-indicator {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: calc(100% - 10px);
+    width: 0;
+    border-radius: 999px;
+    background: var(--ink);
+    transition:
+      transform 450ms var(--ease-out),
+      width 450ms var(--ease-out);
+    pointer-events: none;
+  }
+
+  .filter {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-2);
+    font-size: var(--fs-small);
+    font-weight: 550;
+    white-space: nowrap;
+    transition: color 300ms var(--ease-out);
+  }
+
+  .filter:hover {
+    color: var(--ink);
+  }
+
+  .filter[aria-pressed='true'] {
+    color: #fff;
+  }
+
+  .filter-count {
+    min-width: 22px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--ink-2);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    transition:
+      background-color 300ms var(--ease-out),
+      color 300ms var(--ease-out);
+  }
+
+  .filter[aria-pressed='true'] .filter-count {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+  }
+
+  .filter-status {
+    margin-bottom: 28px;
+    color: var(--muted);
+    font-size: var(--fs-small);
+  }
+
+  .project-grid {
+    display: grid;
+    gap: clamp(20px, 2.4vw, 32px);
+    list-style: none;
+  }
+
+  @media (min-width: 800px) {
+    .project-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .project-item.is-entering {
+    animation: card-in 500ms var(--ease-out) both;
+  }
+
+  @keyframes card-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-item.is-entering {
+      animation: none;
+    }
+
+    .filter-indicator {
+      transition: none;
+    }
+  }
+
+  .empty-state {
+    display: grid;
+    justify-items: start;
+    gap: 16px;
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--border);
+    color: var(--ink-2);
+  }
+</style>

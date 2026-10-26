@@ -1,0 +1,77 @@
+---
+// A project's cover at a fixed 16:10 ratio: a browser window for websites, the
+// composed image for mobile apps, or the placeholder when there is no cover yet.
+import type { Project } from '../data/projects';
+import { categoryById } from '../data/categories';
+import ProjectImage from './ProjectImage.astro';
+import CoverPlaceholder from './CoverPlaceholder.astro';
+
+interface Props {
+  project: Project;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'auto';
+  class?: string;
+}
+
+const { project, sizes = '(min-width: 1000px) 620px, 100vw', loading = 'lazy', fetchpriority, class: className } = Astro.props;
+const { cover } = project;
+const category = categoryById[project.categories[0]]?.badge;
+---
+
+<div class:list={['pm', className]} style={`--ground: ${project.ground}`} data-frame={cover?.frame ?? 'placeholder'}>
+  {
+    cover?.frame === 'browser' && (
+      <div class="pm-window browser">
+        <div class="browser-bar" aria-hidden="true">
+          <span class="browser-dots">
+            <span />
+            <span />
+            <span />
+          </span>
+          <span class="browser-host">{cover.host}</span>
+        </div>
+        <div class="browser-view">
+          <ProjectImage src={cover.src} alt={cover.alt} label={project.name} sublabel={category} sizes={sizes} loading={loading} fetchpriority={fetchpriority} />
+        </div>
+      </div>
+    )
+  }
+  {
+    cover?.frame === 'plain' && (
+      <div class="pm-plain">
+        <ProjectImage src={cover.src} alt={cover.alt} label={project.name} sublabel={category} sizes={sizes} loading={loading} fetchpriority={fetchpriority} />
+      </div>
+    )
+  }
+  {!cover && <CoverPlaceholder project={project} />}
+</div>
+
+<style>
+  .pm {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--ground);
+    isolation: isolate;
+  }
+
+  .pm-window {
+    position: absolute;
+    top: 8%;
+    left: 7%;
+    right: 7%;
+    bottom: -6%;
+    transition: transform 600ms var(--ease-out);
+  }
+
+  .pm-plain {
+    position: absolute;
+    inset: 0;
+  }
+
+  .pm-plain :global(img) {
+    object-position: center;
+    transition: transform 700ms var(--ease-out);
+  }
+</style>

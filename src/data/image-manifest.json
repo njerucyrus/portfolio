@@ -1,0 +1,1046 @@
+{
+  "images/cyrus.webp": {
+    "width": 240,
+    "height": 240,
+    "variants": [
+      {
+        "width": 240,
+        "src": "images/cyrus.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/dartiq-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/dartiq-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/dartiq.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/board.webp": {
+    "width": 720,
+    "height": 1560,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/dartiq/board-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/dartiq/board.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/computer.webp": {
+    "width": 720,
+    "height": 1560,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/dartiq/computer-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/dartiq/computer.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/history.webp": {
+    "width": 720,
+    "height": 1560,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/dartiq/history-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/dartiq/history.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/home.webp": {
+    "width": 720,
+    "height": 1560,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/dartiq/home-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/dartiq/home.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/practice.webp": {
+    "width": 720,
+    "height": 1560,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/dartiq/practice-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/dartiq/practice.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/scoring.webp": {
+    "width": 720,
+    "height": 1560,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/dartiq/scoring-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/dartiq/scoring.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/stats.webp": {
+    "width": 720,
+    "height": 1560,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/dartiq/stats-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/dartiq/stats.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/tablet-board.webp": {
+    "width": 1600,
+    "height": 1000,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/dartiq/tablet-board-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/dartiq/tablet-board.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/tablet-stats.webp": {
+    "width": 1600,
+    "height": 1000,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/dartiq/tablet-stats-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/dartiq/tablet-stats.webp"
+      }
+    ]
+  },
+  "images/projects/dartiq/welcome.webp": {
+    "width": 720,
+    "height": 1560,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/dartiq/welcome-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/dartiq/welcome.webp"
+      }
+    ]
+  },
+  "images/projects/inr-notebook.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/inr-notebook-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/inr-notebook-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/inr-notebook.webp"
+      }
+    ]
+  },
+  "images/projects/inr-notebook/clinic.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/inr-notebook/clinic-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/inr-notebook/clinic.webp"
+      }
+    ]
+  },
+  "images/projects/inr-notebook/diary.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/inr-notebook/diary-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/inr-notebook/diary.webp"
+      }
+    ]
+  },
+  "images/projects/inr-notebook/food.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/inr-notebook/food-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/inr-notebook/food.webp"
+      }
+    ]
+  },
+  "images/projects/inr-notebook/home.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/inr-notebook/home-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/inr-notebook/home.webp"
+      }
+    ]
+  },
+  "images/projects/inr-notebook/inr-chart.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/inr-notebook/inr-chart-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/inr-notebook/inr-chart.webp"
+      }
+    ]
+  },
+  "images/projects/inr-notebook/safety.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/inr-notebook/safety-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/inr-notebook/safety.webp"
+      }
+    ]
+  },
+  "images/projects/inr-notebook/vitamin-k.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/inr-notebook/vitamin-k-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/inr-notebook/vitamin-k.webp"
+      }
+    ]
+  },
+  "images/projects/inr-notebook/warfarin.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/inr-notebook/warfarin-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/inr-notebook/warfarin.webp"
+      }
+    ]
+  },
+  "images/projects/macaws-ai.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/macaws-ai-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/macaws-ai-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/macaws-ai.webp"
+      }
+    ]
+  },
+  "images/projects/macaws-ai/call.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/macaws-ai/call-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/macaws-ai/call-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/macaws-ai/call.webp"
+      }
+    ]
+  },
+  "images/projects/macaws-ai/home.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/macaws-ai/home-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/macaws-ai/home-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/macaws-ai/home.webp"
+      }
+    ]
+  },
+  "images/projects/macaws-ai/local.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/macaws-ai/local-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/macaws-ai/local-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/macaws-ai/local.webp"
+      }
+    ]
+  },
+  "images/projects/macaws-ai/mobile.webp": {
+    "width": 720,
+    "height": 1558,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/macaws-ai/mobile-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/macaws-ai/mobile.webp"
+      }
+    ]
+  },
+  "images/projects/macaws-ai/signal.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/macaws-ai/signal-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/macaws-ai/signal-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/macaws-ai/signal.webp"
+      }
+    ]
+  },
+  "images/projects/nexus-portal.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/nexus-portal-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/nexus-portal-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/nexus-portal.webp"
+      }
+    ]
+  },
+  "images/projects/nexus-portal/agencies.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/nexus-portal/agencies-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/nexus-portal/agencies-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/nexus-portal/agencies.webp"
+      }
+    ]
+  },
+  "images/projects/nexus-portal/features.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/nexus-portal/features-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/nexus-portal/features-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/nexus-portal/features.webp"
+      }
+    ]
+  },
+  "images/projects/nexus-portal/home.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/nexus-portal/home-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/nexus-portal/home-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/nexus-portal/home.webp"
+      }
+    ]
+  },
+  "images/projects/nexus-portal/mobile.webp": {
+    "width": 720,
+    "height": 1558,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/nexus-portal/mobile-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/nexus-portal/mobile.webp"
+      }
+    ]
+  },
+  "images/projects/nexus-portal/sign-in.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/nexus-portal/sign-in-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/nexus-portal/sign-in-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/nexus-portal/sign-in.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan.webp": {
+    "width": 1728,
+    "height": 1080,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/novia-digital-scan-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/novia-digital-scan-1600.webp"
+      },
+      {
+        "width": 1728,
+        "src": "images/projects/novia-digital-scan.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/history.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/novia-digital-scan/history-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/novia-digital-scan/history.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/item-counted.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/novia-digital-scan/item-counted-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/novia-digital-scan/item-counted.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/job-sheet.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/novia-digital-scan/job-sheet-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/novia-digital-scan/job-sheet.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/machines.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/novia-digital-scan/machines-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/novia-digital-scan/machines.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/order.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/novia-digital-scan/order-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/novia-digital-scan/order.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/settings.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/novia-digital-scan/settings-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/novia-digital-scan/settings.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/sign-in.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/novia-digital-scan/sign-in-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/novia-digital-scan/sign-in.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/tablet-history.webp": {
+    "width": 1600,
+    "height": 900,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/novia-digital-scan/tablet-history-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/novia-digital-scan/tablet-history.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/tablet-item.webp": {
+    "width": 1600,
+    "height": 900,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/novia-digital-scan/tablet-item-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/novia-digital-scan/tablet-item.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital-scan/tablet-machines.webp": {
+    "width": 1600,
+    "height": 900,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/novia-digital-scan/tablet-machines-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/novia-digital-scan/tablet-machines.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/novia-digital-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/novia-digital-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/novia-digital.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital/features.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/novia-digital/features-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/novia-digital/features-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/novia-digital/features.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital/home.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/novia-digital/home-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/novia-digital/home-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/novia-digital/home.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital/mobile.webp": {
+    "width": 720,
+    "height": 1558,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/novia-digital/mobile-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/novia-digital/mobile.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital/pricing.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/novia-digital/pricing-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/novia-digital/pricing-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/novia-digital/pricing.webp"
+      }
+    ]
+  },
+  "images/projects/novia-digital/quotes.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/novia-digital/quotes-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/novia-digital/quotes-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/novia-digital/quotes.webp"
+      }
+    ]
+  },
+  "images/projects/oliver-embroidery.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/oliver-embroidery-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/oliver-embroidery-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/oliver-embroidery.webp"
+      }
+    ]
+  },
+  "images/projects/oliver-embroidery/category.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/oliver-embroidery/category-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/oliver-embroidery/category-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/oliver-embroidery/category.webp"
+      }
+    ]
+  },
+  "images/projects/oliver-embroidery/designer.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/oliver-embroidery/designer-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/oliver-embroidery/designer-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/oliver-embroidery/designer.webp"
+      }
+    ]
+  },
+  "images/projects/oliver-embroidery/mobile.webp": {
+    "width": 720,
+    "height": 1558,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/oliver-embroidery/mobile-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/oliver-embroidery/mobile.webp"
+      }
+    ]
+  },
+  "images/projects/oliver-embroidery/product.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/oliver-embroidery/product-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/oliver-embroidery/product-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/oliver-embroidery/product.webp"
+      }
+    ]
+  },
+  "images/projects/standard-print-stitch.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/standard-print-stitch-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/standard-print-stitch-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/standard-print-stitch.webp"
+      }
+    ]
+  },
+  "images/projects/standard-print-stitch/category.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/standard-print-stitch/category-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/standard-print-stitch/category-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/standard-print-stitch/category.webp"
+      }
+    ]
+  },
+  "images/projects/standard-print-stitch/designer.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/standard-print-stitch/designer-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/standard-print-stitch/designer-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/standard-print-stitch/designer.webp"
+      }
+    ]
+  },
+  "images/projects/standard-print-stitch/home.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/standard-print-stitch/home-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/standard-print-stitch/home-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/standard-print-stitch/home.webp"
+      }
+    ]
+  },
+  "images/projects/standard-print-stitch/mobile.webp": {
+    "width": 720,
+    "height": 1558,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/standard-print-stitch/mobile-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/standard-print-stitch/mobile.webp"
+      }
+    ]
+  },
+  "images/projects/standard-print-stitch/product.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/standard-print-stitch/product-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/standard-print-stitch/product-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/standard-print-stitch/product.webp"
+      }
+    ]
+  },
+  "images/projects/viyu-hub.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/viyu-hub-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/viyu-hub-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/viyu-hub.webp"
+      }
+    ]
+  },
+  "images/projects/viyu-hub/home.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/viyu-hub/home-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/viyu-hub/home-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/viyu-hub/home.webp"
+      }
+    ]
+  },
+  "images/projects/viyu-hub/mobile.webp": {
+    "width": 720,
+    "height": 1558,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/viyu-hub/mobile-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/viyu-hub/mobile.webp"
+      }
+    ]
+  },
+  "images/projects/viyu-hub/platform.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/viyu-hub/platform-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/viyu-hub/platform-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/viyu-hub/platform.webp"
+      }
+    ]
+  },
+  "images/projects/viyu-hub/pricing.webp": {
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "width": 800,
+        "src": "images/projects/viyu-hub/pricing-800.webp"
+      },
+      {
+        "width": 1600,
+        "src": "images/projects/viyu-hub/pricing-1600.webp"
+      },
+      {
+        "width": 2400,
+        "src": "images/projects/viyu-hub/pricing.webp"
+      }
+    ]
+  }
+}

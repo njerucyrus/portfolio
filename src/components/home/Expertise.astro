@@ -1,0 +1,126 @@
+---
+import { expertise } from '../../data/skills';
+import Icon from '../Icon.astro';
+---
+
+<section id="expertise" class="section expertise" aria-labelledby="expertise-title">
+  <div class="container">
+    <header class="section-head section-head--split">
+      <h2 id="expertise-title" class="section-title" data-reveal>Expertise</h2>
+      <p class="section-intro" data-reveal style="--i: 1">
+        From the interface people touch to the systems, integrations and agents running behind it.
+      </p>
+    </header>
+
+    <ol class="exp-grid" role="list">
+      {
+        expertise.map((item, i) => (
+          <li class="exp-card" data-reveal style={`--i: ${i % 2}`}>
+            <div class="exp-top">
+              <span class="exp-number">{item.number}</span>
+              <span class="exp-icon">
+                <Icon name={item.icon} size={26} />
+              </span>
+            </div>
+            <h3 class="exp-title">{item.title}</h3>
+            <p class="exp-text">{item.text}</p>
+            <ul class="tags" aria-label="Typical technologies">
+              {item.tech.map((t) => (
+                <li class="tag">{t}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .expertise {
+    background: var(--surface);
+  }
+
+  .exp-grid {
+    display: grid;
+    gap: clamp(16px, 2vw, 24px);
+    list-style: none;
+  }
+
+  @media (min-width: 800px) {
+    .exp-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .exp-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: clamp(24px, 3vw, 40px);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition:
+      box-shadow 300ms var(--ease-out),
+      background-color 300ms var(--ease-out);
+  }
+
+  .exp-card:hover {
+    background: var(--surface);
+    box-shadow:
+      inset 0 0 0 1px var(--border-strong),
+      var(--shadow-hover);
+  }
+
+  .exp-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: clamp(16px, 3vw, 40px);
+  }
+
+  .exp-number {
+    color: var(--accent);
+    font-size: clamp(2.5rem, 2rem + 2vw, 3.75rem);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+  }
+
+  .exp-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    transition: transform 400ms var(--ease-out);
+  }
+
+  .exp-card:hover .exp-icon {
+    transform: rotate(-6deg) scale(1.05);
+  }
+
+  .exp-title {
+    font-size: var(--fs-h3);
+    letter-spacing: -0.03em;
+  }
+
+  .exp-text {
+    max-width: 46ch;
+    color: var(--ink-2);
+  }
+
+  .tags {
+    margin-top: auto;
+    padding-top: 8px;
+  }
+
+  .tag {
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+</style>

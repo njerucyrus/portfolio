@@ -1,0 +1,43 @@
+---
+// The profile photo from site.portrait. Renders nothing when none is set.
+// The source photo is 240px square, so keep `size` at 120 or below for a sharp
+// result on high-density screens.
+import { site } from '../config/site';
+import { resolveImage } from '../lib/images';
+
+interface Props {
+  size?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  /** Decorative when the name is already next to the photo. */
+  decorative?: boolean;
+}
+
+const { size = 56, class: className, loading = 'lazy', decorative = false } = Astro.props;
+const photo = resolveImage(site.portrait);
+---
+
+{
+  photo && (
+    <img
+      class:list={['avatar', className]}
+      src={photo.src}
+      srcset={photo.srcset}
+      sizes={`${size}px`}
+      width={size}
+      height={size}
+      alt={decorative ? '' : `Photo of ${site.name}`}
+      loading={loading}
+      decoding="async"
+    />
+  )
+}
+
+<style>
+  .avatar {
+    flex: none;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--surface-2);
+  }
+</style>

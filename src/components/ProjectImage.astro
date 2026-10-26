@@ -1,0 +1,52 @@
+---
+// Reusable project image: responsive srcset from the image manifest, reserved
+// dimensions, lazy loading, and a labelled placeholder when the file is missing
+// at build time or fails to load in the browser.
+import { resolveImage } from '../lib/images';
+
+interface Props {
+  src: string | null | undefined;
+  alt: string;
+  /** Name and category for the placeholder, e.g. "Dartiq" and "Mobile Application". */
+  label: string;
+  sublabel?: string;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'auto';
+  class?: string;
+}
+
+const { src, alt, label, sublabel, sizes = '100vw', loading = 'lazy', fetchpriority = 'auto', class: className } = Astro.props;
+const image = resolveImage(src);
+---
+
+<div class:list={['media-img', className]}>
+  {
+    image ? (
+      <>
+        <img
+          src={image.src}
+          srcset={image.srcset}
+          sizes={image.srcset ? sizes : undefined}
+          width={image.width}
+          height={image.height}
+          alt={alt}
+          loading={loading}
+          decoding="async"
+          fetchpriority={fetchpriority}
+          onerror="this.parentElement.classList.add('is-broken')"
+        />
+        <div class="img-fallback" role="img" aria-label={`Image unavailable: ${label}`}>
+          <strong>{label}</strong>
+          <span>Image unavailable</span>
+        </div>
+      </>
+    ) : (
+      <div class="img-placeholder" role="img" aria-label={`Placeholder for ${label}. A screenshot has not been added yet.`}>
+        <strong>{label}</strong>
+        {sublabel && <span>{sublabel}</span>}
+        <span>Screenshot to be added</span>
+      </div>
+    )
+  }
+</div>

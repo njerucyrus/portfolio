@@ -1,0 +1,116 @@
+---
+import { process } from '../../data/skills';
+---
+
+<section id="process" class="section process" aria-labelledby="process-title">
+  <div class="container">
+    <header class="section-head section-head--split">
+      <h2 id="process-title" class="section-title" data-reveal>How I work</h2>
+      <p class="section-intro" data-reveal style="--i: 1">A clear path from an idea to software people use, with you in the loop throughout.</p>
+    </header>
+
+    <ol class="steps">
+      {
+        process.map((step, i) => (
+          <li class="step" data-reveal style={`--i: ${i}`}>
+            <span class="step-marker" aria-hidden="true">
+              {i + 1}
+            </span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps {
+    --marker: 48px;
+    position: relative;
+    display: grid;
+    gap: 36px;
+    list-style: none;
+  }
+
+  /* The connecting line: vertical on phones, horizontal on wide screens. */
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: calc(var(--marker) / 2 - 1px);
+    width: 2px;
+    background: var(--border);
+  }
+
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--marker) 1fr;
+    column-gap: 20px;
+    row-gap: 6px;
+  }
+
+  .step-marker {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: var(--marker);
+    height: var(--marker);
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-size: 1.125rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 0 0 0 8px var(--bg);
+  }
+
+  .step:first-child .step-marker {
+    background: var(--accent);
+  }
+
+  .step h3 {
+    align-self: end;
+    font-size: var(--fs-h3);
+    letter-spacing: -0.03em;
+  }
+
+  .step p {
+    max-width: 30ch;
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 900px) {
+    .steps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 32px;
+    }
+
+    .steps::before {
+      top: calc(var(--marker) / 2 - 1px);
+      bottom: auto;
+      left: var(--marker);
+      right: 0;
+      width: auto;
+      height: 2px;
+    }
+
+    .step {
+      grid-template-columns: 1fr;
+      align-content: start;
+      row-gap: 12px;
+    }
+
+    .step h3 {
+      align-self: start;
+    }
+
+    .step-marker {
+      grid-row: auto;
+      margin-bottom: 16px;
+    }
+  }
+</style>

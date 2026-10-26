@@ -1,0 +1,30 @@
+{
+  "name": "cyrus-njeru-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "verify": "node scripts/verify-site.mjs",
+    "assets:fetch": "node scripts/fetch-assets.mjs",
+    "assets:capture": "node scripts/capture-websites.mjs",
+    "images": "node scripts/build-images.mjs",
+    "brand": "node scripts/build-brand.mjs",
+    "assets": "npm run assets:fetch && npm run assets:capture && npm run images && npm run brand"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/geist": "^5.3.0",
+    "astro": "^5.18.2",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "playwright": "^1.64.1",
+    "simple-icons": "^16.36.0",
+    "typescript": "^5.9.3"
+  }
+}

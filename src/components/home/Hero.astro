@@ -1,0 +1,330 @@
+---
+import Icon from '../Icon.astro';
+import ProjectImage from '../ProjectImage.astro';
+import Avatar from '../Avatar.astro';
+
+// The collage uses real captures of shipped projects only.
+const windows = [
+  { cls: 'back-left', src: 'images/projects/macaws-ai.webp', host: 'macaws.ai', alt: 'Macaws.ai home page.', label: 'Macaws AI', depth: 0.35 },
+  { cls: 'back-right', src: 'images/projects/novia-digital.webp', host: 'noviadigital.io', alt: 'Novia Digital home page.', label: 'Novia Digital', depth: 0.55 },
+  { cls: 'front', src: 'images/projects/nexus-portal.webp', host: 'nexusportal.digital', alt: 'Nexus Portal home page with a CRM dashboard preview.', label: 'Nexus Portal', depth: 0.8 },
+];
+---
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero-bg" data-hero-dark aria-hidden="true"></div>
+
+  <div class="container hero-copy">
+    <h1 id="hero-title" class="hero-title" data-reveal>I Build Digital Products, Mobile Apps & AI&#8209;Powered Experiences.</h1>
+    <div class="hero-row">
+      <div class="hero-intro" data-reveal style="--i: 1">
+        <Avatar size={64} loading="eager" class="hero-avatar" />
+        <p class="hero-lead">
+          I’m Cyrus Njeru, a Full-Stack Software Developer building web applications, mobile products, intelligent AI agents, and voice automation systems that
+          solve real-world problems.
+        </p>
+      </div>
+      <div class="hero-actions" data-reveal style="--i: 2">
+        <a class="btn btn-primary" href="#work">
+          Explore My Work
+          <Icon name="arrow-right" />
+        </a>
+        <a class="btn btn-secondary" href="#contact">Let’s Talk</a>
+      </div>
+    </div>
+    <ul class="hero-disciplines" aria-label="Areas of work" data-reveal style="--i: 3">
+      <li>Full-Stack Development</li>
+      <li>Mobile Apps</li>
+      <li>AI Agents</li>
+      <li>Voice Automation</li>
+    </ul>
+  </div>
+
+  <figure class="container hero-figure">
+    <div class="hero-stage" data-hero-stage>
+      {
+        windows.map((w, i) => (
+          <div class:list={['stage-item', `stage-${w.cls}`]} style={`--depth: ${w.depth}; --n: ${i}`}>
+            <div class="browser">
+              <div class="browser-bar" aria-hidden="true">
+                <span class="browser-dots">
+                  <span />
+                  <span />
+                  <span />
+                </span>
+                <span class="browser-host">{w.host}</span>
+              </div>
+              <div class="browser-view">
+                <ProjectImage
+                  src={w.src}
+                  alt={w.alt}
+                  label={w.label}
+                  loading="eager"
+                  fetchpriority={w.cls === 'front' ? 'high' : 'auto'}
+                  sizes={w.cls === 'front' ? '(min-width: 900px) 760px, 90vw' : '(min-width: 900px) 560px, 70vw'}
+                />
+              </div>
+            </div>
+          </div>
+        ))
+      }
+      <div class="stage-item stage-phone" style="--depth: 1.1; --n: 3">
+        <div class="phone">
+          <ProjectImage
+            src="images/projects/dartiq/board.webp"
+            alt="DartsIQ on Android, scoring darts on the board."
+            label="DartsIQ"
+            loading="eager"
+            sizes="(min-width: 900px) 180px, 30vw"
+          />
+        </div>
+      </div>
+    </div>
+    <figcaption class="hero-caption">Real screens from shipped work: Macaws.ai, Novia Digital, Nexus Portal and the DartsIQ Android app.</figcaption>
+  </figure>
+</section>
+
+<script>
+  // Gentle depth on scroll: each layer moves at its own rate while the hero is in view.
+  const stage = document.querySelector<HTMLElement>('[data-hero-stage]');
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (stage && !calm.matches) {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const progress = Math.min(1, Math.max(0, window.scrollY / window.innerHeight));
+      stage.style.setProperty('--progress', progress.toFixed(3));
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!frame) frame = requestAnimationFrame(update);
+      },
+      { passive: true },
+    );
+    update();
+  }
+</script>
+
+<style>
+  .hero {
+    --tail: clamp(96px, 16vw, 240px);
+    position: relative;
+    isolation: isolate;
+    overflow-x: clip;
+    padding-top: clamp(40px, 6vw, 96px);
+    color: var(--night-ink);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0 0 auto;
+    height: calc(100% - var(--tail) - 3rem);
+    z-index: -1;
+    background: var(--night);
+  }
+
+  .hero-title {
+    max-width: 17ch;
+    font-size: var(--fs-display);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  @media (min-width: 1100px) {
+    .hero-title {
+      max-width: 19ch;
+    }
+  }
+
+  .hero-row {
+    display: grid;
+    gap: 28px;
+    margin-top: clamp(24px, 3vw, 40px);
+  }
+
+  @media (min-width: 960px) {
+    .hero-row {
+      grid-template-columns: minmax(0, 36rem) auto;
+      justify-content: space-between;
+      align-items: end;
+    }
+  }
+
+  .hero-intro {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .hero-intro :global(.hero-avatar) {
+    margin-top: 4px;
+    box-shadow: 0 0 0 3px var(--night), 0 0 0 4px rgba(255, 255, 255, 0.28);
+  }
+
+  .hero-lead {
+    color: var(--night-muted);
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 520px) {
+    .hero-intro {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero-actions :global(.btn-secondary) {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: var(--night-ink);
+  }
+
+  .hero-actions :global(.btn-secondary:hover) {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+
+  .hero :global(:focus-visible) {
+    outline-color: var(--night-accent);
+  }
+
+  .hero-disciplines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin-top: clamp(28px, 3.5vw, 48px);
+    list-style: none;
+    color: var(--night-ink);
+    font-size: var(--fs-small);
+    font-weight: 500;
+  }
+
+  .hero-disciplines li {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-disciplines li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--night-accent);
+  }
+
+  .hero-figure {
+    margin: clamp(40px, 5vw, 72px) auto 0;
+  }
+
+  .hero-stage {
+    --progress: 0;
+    position: relative;
+    aspect-ratio: 2 / 1;
+  }
+
+  .stage-item {
+    position: absolute;
+    transform: translateY(calc(var(--progress) * var(--depth) * -56px));
+    will-change: transform;
+  }
+
+  .stage-item .browser {
+    box-shadow: var(--shadow-float);
+  }
+
+  .stage-item .browser-view {
+    aspect-ratio: 16 / 10;
+  }
+
+  .stage-back-left {
+    top: 7%;
+    left: 0;
+    width: 45%;
+  }
+
+  .stage-back-right {
+    top: 0;
+    right: 0;
+    width: 45%;
+  }
+
+  .stage-front {
+    top: 21%;
+    left: 20%;
+    width: 58%;
+    z-index: 2;
+  }
+
+  .stage-phone {
+    top: 30%;
+    right: 12%;
+    width: 13.5%;
+    z-index: 3;
+  }
+
+  .stage-phone .phone {
+    box-shadow: var(--shadow-float);
+  }
+
+  .stage-phone :global(.media-img img) {
+    object-position: top;
+  }
+
+  @media (max-width: 899px) {
+    .hero-stage {
+      aspect-ratio: 4 / 3.3;
+    }
+
+    .stage-back-left {
+      display: none;
+    }
+
+    .stage-back-right {
+      top: 0;
+      right: -6%;
+      width: 70%;
+    }
+
+    .stage-front {
+      top: 18%;
+      left: 0;
+      width: 82%;
+    }
+
+    .stage-phone {
+      top: 24%;
+      right: 0;
+      width: 27%;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js .stage-item {
+      animation: stage-in 1000ms var(--ease-out) both;
+      animation-delay: calc(250ms + var(--n) * 110ms);
+    }
+  }
+
+  @keyframes stage-in {
+    from {
+      opacity: 0;
+      translate: 0 40px;
+    }
+  }
+
+  .hero-caption {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: var(--fs-xs);
+  }
+</style>
