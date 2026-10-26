@@ -13,12 +13,12 @@ export const site = {
    * Public contact email. Leave empty to hide every email button and link.
    * Example: 'hello@yourdomain.com'
    */
-  email: '',
+  email: 'cyrus@macaws.ai',
 
   /** Public profile URLs. Leave a value empty to hide that link everywhere. */
   social: {
     github: 'https://github.com/njerucyrus',
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/njeru-cyrus/',
   },
 
   /**

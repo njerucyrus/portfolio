@@ -41,15 +41,34 @@ const liveWeb = projects.filter((p) => p.categories.includes('web') && p.links.s
         <div>
           <p class="profile-name">{site.name}</p>
           <p class="profile-role">{site.headline}</p>
-          {
-            site.social.github && (
-              <a class="text-link profile-link" href={site.social.github} target="_blank" rel="me noopener noreferrer">
-                <Icon name="github" size={16} />
-                GitHub profile
-                <span class="sr-only">(opens in a new tab)</span>
-              </a>
-            )
-          }
+          <div class="profile-links">
+            {
+              site.social.linkedin && (
+                <a class="text-link" href={site.social.linkedin} target="_blank" rel="me noopener noreferrer">
+                  LinkedIn
+                  <Icon name="arrow-up-right" size={16} />
+                  <span class="sr-only">(opens in a new tab)</span>
+                </a>
+              )
+            }
+            {
+              site.social.github && (
+                <a class="text-link" href={site.social.github} target="_blank" rel="me noopener noreferrer">
+                  <Icon name="github" size={16} />
+                  GitHub
+                  <span class="sr-only">(opens in a new tab)</span>
+                </a>
+              )
+            }
+            {
+              site.email && (
+                <a class="text-link" href={`mailto:${site.email}`}>
+                  <Icon name="mail" size={16} />
+                  {site.email}
+                </a>
+              )
+            }
+          </div>
         </div>
       </div>
       <ul class="highlights" role="list">
@@ -158,7 +177,10 @@ const liveWeb = projects.filter((p) => p.categories.includes('web') && p.links.s
     line-height: 1.45;
   }
 
-  .profile-link {
+  .profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
     margin-top: 10px;
     font-size: var(--fs-small);
   }
