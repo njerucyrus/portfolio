@@ -13,7 +13,9 @@ import Avatar from '../Avatar.astro';
       </p>
       <div class="signature" data-reveal style="--i: 2">
         <Avatar size={48} decorative />
-        <p><strong>{site.name}</strong><span>{site.role}</span></p>
+        <p>
+          <strong>{site.founder.name}</strong><span>{site.founder.title}, {site.name}</span><span>{site.location.city}, {site.location.country}</span>
+        </p>
       </div>
       <div class="contact-links" data-reveal style="--i: 2">
         {
@@ -26,7 +28,7 @@ import Avatar from '../Avatar.astro';
         }
         {
           site.social.github && (
-            <a class="btn btn-secondary" href={site.social.github} target="_blank" rel="me noopener noreferrer">
+            <a class="btn btn-secondary" href={site.social.github} target="_blank" rel="noopener noreferrer">
               <Icon name="github" size={18} />
               GitHub
               <span class="sr-only">(opens in a new tab)</span>
@@ -35,7 +37,7 @@ import Avatar from '../Avatar.astro';
         }
         {
           site.social.linkedin && (
-            <a class="btn btn-secondary" href={site.social.linkedin} target="_blank" rel="me noopener noreferrer">
+            <a class="btn btn-secondary" href={site.social.linkedin} target="_blank" rel="noopener noreferrer">
               LinkedIn
               <Icon name="arrow-up-right" />
               <span class="sr-only">(opens in a new tab)</span>

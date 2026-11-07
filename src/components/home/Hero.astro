@@ -2,6 +2,7 @@
 import Icon from '../Icon.astro';
 import ProjectImage from '../ProjectImage.astro';
 import Avatar from '../Avatar.astro';
+import { site } from '../../config/site';
 
 // The collage uses real captures of shipped projects only.
 const windows = [
@@ -15,18 +16,18 @@ const windows = [
   <div class="hero-bg" data-hero-dark aria-hidden="true"></div>
 
   <div class="container hero-copy">
-    <h1 id="hero-title" class="hero-title" data-reveal>I Build Digital Products, Mobile Apps & AI&#8209;Powered Experiences.</h1>
+    <h1 id="hero-title" class="hero-title" data-reveal>We Build Digital Products, Mobile Apps & AI&#8209;Powered Experiences.</h1>
     <div class="hero-row">
       <div class="hero-intro" data-reveal style="--i: 1">
         <Avatar size={64} loading="eager" class="hero-avatar" />
         <p class="hero-lead">
-          I’m Cyrus Njeru, a Full-Stack Software Developer building web applications, mobile products, intelligent AI agents, and voice automation systems that
-          solve real-world problems.
+          {site.name} is a technology company in {site.location.city}, {site.location.country}, founded by {site.founder.name}. We build web applications,
+          mobile products, intelligent AI agents, and voice automation systems that solve real-world problems.
         </p>
       </div>
       <div class="hero-actions" data-reveal style="--i: 2">
         <a class="btn btn-primary" href="#work">
-          Explore My Work
+          Explore the Work
           <Icon name="arrow-right" />
         </a>
         <a class="btn btn-secondary" href="#contact">Let’s Talk</a>
@@ -80,7 +81,9 @@ const windows = [
         </div>
       </div>
     </div>
-    <figcaption class="hero-caption">Real screens from shipped work: Macaws.ai, Novia Digital, Nexus Portal and the DartsIQ Android app.</figcaption>
+    <figcaption class="hero-caption">
+      Real screens from products our founder has shipped: Macaws.ai, Novia Digital, Nexus Portal and the DartsIQ Android app.
+    </figcaption>
   </figure>
 </section>
 

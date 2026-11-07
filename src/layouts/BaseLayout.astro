@@ -22,27 +22,37 @@ const {
   title,
   description = site.description,
   image = 'og-image.png',
-  imageAlt = `${site.name}, ${site.role}`,
+  imageAlt = `${site.name}: ${site.tagline}`,
   headerTheme = 'light',
   home = false,
   noindex = false,
   jsonLd,
 } = Astro.props;
 
-const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = absolute(image, Astro.site);
-const sameAs = Object.values(site.social).filter(Boolean);
+const founderProfiles = Object.values(site.social).filter(Boolean);
 
-const person = {
+const organization = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
+  '@type': 'Organization',
   name: site.name,
-  jobTitle: site.role,
   description: site.description,
   url: absolute('', Astro.site),
-  ...(sameAs.length ? { sameAs } : {}),
+  logo: absolute('apple-touch-icon.png', Astro.site),
   ...(site.email ? { email: `mailto:${site.email}` } : {}),
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.location.city,
+    addressCountry: site.location.countryCode,
+  },
+  founder: {
+    '@type': 'Person',
+    name: site.founder.name,
+    jobTitle: site.founder.title,
+    ...(founderProfiles.length ? { sameAs: founderProfiles } : {}),
+  },
 };
 ---
 
@@ -82,7 +92,7 @@ const person = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={imageAlt} />
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? person)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? organization)} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

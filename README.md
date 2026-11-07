@@ -1,10 +1,15 @@
-# Cyrus Njeru · Portfolio
+# TripleFive254 Ventures · Website
 
-Personal portfolio for Cyrus Njeru, Full-Stack Software Developer. A static
-[Astro](https://astro.build) site deployed to GitHub Pages at
-**https://njerucyrus.github.io/portfolio/**.
+Website for TripleFive254 Ventures, a technology company in Nairobi, Kenya,
+founded by Cyrus Njeru. A static [Astro](https://astro.build) site deployed to
+GitHub Pages at **https://njerucyrus.github.io/portfolio/**.
 
-- Home page: hero, filterable project gallery, expertise, technical stack, about, process, contact
+The projects on the site are presented as the founder's track record: products
+Cyrus has built or worked on, not client work delivered by the company. Keep new
+entries and their `role` text in those terms unless a project was delivered
+through TripleFive254 Ventures.
+
+- Home page: hero, filterable project gallery (the founder's track record), services, technical stack, about and founder, process, contact
 - `/projects/` and a case-study page for every project at `/projects/<slug>/`
 - Real screenshots from each live website and Google Play listing, optimised to WebP
 - Contact form with validation and a pluggable submission endpoint
@@ -25,10 +30,11 @@ npm run preview    # serves dist/
 
 | To change… | Edit |
 | --- | --- |
-| Email, GitHub/LinkedIn, contact form endpoint, profile photo | `src/config/site.ts` |
+| Business name, tagline, location, founder details and photo, email, the founder's GitHub/LinkedIn, contact form endpoint | `src/config/site.ts` |
 | Projects (text, links, tags, screenshots, order) | `src/data/projects.ts` |
 | Filter categories | `src/data/categories.ts` |
-| Skills, expertise cards, process steps, about highlights | `src/data/skills.ts` |
+| Skills, service cards, process steps, about highlights | `src/data/skills.ts` |
+| Logo mark | `src/components/Logo.astro` and `mark` in `scripts/build-brand.mjs` (then `npm run brand`) |
 | Colours, type scale, spacing | `src/styles/global.css` (tokens at the top) |
 | Image sources (Play screenshots, pages to capture) | `scripts/asset-sources.mjs` |
 
@@ -39,7 +45,7 @@ site points nowhere.
 
 Add an entry to `projects` in `src/data/projects.ts`. The card, the filters, the
 `/projects/` page and the case-study page are generated from it. Sections such as
-`purpose`, `role` (your contribution) and `implementation` only appear when filled
+`purpose`, `role` (the founder's part) and `implementation` only appear when filled
 in. If an image is missing, the site shows a labelled placeholder rather than a
 broken image.
 
@@ -50,7 +56,7 @@ Raw captures go to `assets-src/` (git-ignored); optimised copies go to
 
 ```bash
 npm run assets           # all of the below, in order
-npm run assets:fetch     # Google Play screenshots and the profile photo
+npm run assets:fetch     # Google Play screenshots and the founder's photo
 npm run assets:capture   # live websites via Playwright (uses your installed Chrome)
 npm run images           # composes app covers, writes WebP sizes + src/data/image-manifest.json
 npm run brand            # favicons and the default social image

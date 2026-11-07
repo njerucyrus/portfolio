@@ -1,5 +1,5 @@
 ---
-// The profile photo from site.portrait. Renders nothing when none is set.
+// The founder's photo from site.founder.portrait. Renders nothing when none is set.
 // The source photo is 240px square, so keep `size` at 120 or below for a sharp
 // result on high-density screens.
 import { site } from '../config/site';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { size = 56, class: className, loading = 'lazy', decorative = false } = Astro.props;
-const photo = resolveImage(site.portrait);
+const photo = resolveImage(site.founder.portrait);
 ---
 
 {
@@ -26,7 +26,7 @@ const photo = resolveImage(site.portrait);
       sizes={`${size}px`}
       width={size}
       height={size}
-      alt={decorative ? '' : `Photo of ${site.name}`}
+      alt={decorative ? '' : `Photo of ${site.founder.name}, ${site.founder.title.toLowerCase()} of ${site.name}`}
       loading={loading}
       decoding="async"
     />

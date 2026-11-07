@@ -60,7 +60,12 @@ const jsonLd = {
   ...(project.categories.includes('mobile') ? { operatingSystem: 'Android', applicationCategory: 'MobileApplication' } : {}),
   ...(live ? { sameAs: live.href } : {}),
   ...(ogImage ? { image: absolute(ogImage, Astro.site) } : {}),
-  creator: { '@type': 'Person', name: site.name, url: absolute('', Astro.site) },
+  creator: {
+    '@type': 'Person',
+    name: site.founder.name,
+    jobTitle: site.founder.title,
+    worksFor: { '@type': 'Organization', name: site.name, url: absolute('', Astro.site) },
+  },
 };
 ---
 
@@ -116,7 +121,7 @@ const jsonLd = {
         }
 
         <section aria-labelledby="features">
-          <h2 id="features">{project.slug === 'ai-voice-agents' ? 'What I build' : 'Key features'}</h2>
+          <h2 id="features">{project.slug === 'ai-voice-agents' ? 'What we build' : 'Key features'}</h2>
           <ul class="feature-list" role="list">
             {
               project.features.map((f) => (
@@ -134,7 +139,7 @@ const jsonLd = {
         {
           project.role && project.role.length > 0 && (
             <section aria-labelledby="role">
-              <h2 id="role">My contribution</h2>
+              <h2 id="role">Our founder’s role</h2>
               {project.role.map((p) => <p>{p}</p>)}
             </section>
           )

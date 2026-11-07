@@ -4,18 +4,20 @@ import ProjectGallery from '../../components/ProjectGallery.astro';
 import Icon from '../../components/Icon.astro';
 import { projects } from '../../data/projects';
 import { section } from '../../lib/url';
+import { site } from '../../config/site';
 ---
 
 <BaseLayout
   title="Projects"
-  description={`All ${projects.length} projects by Cyrus Njeru: web applications, Android apps, AI and voice agents, and automation.`}
+  description={`All ${projects.length} projects in the ${site.name} track record, built by founder ${site.founder.name}: web applications, Android apps, AI and voice agents, and automation.`}
 >
   <section class="section projects-page" aria-labelledby="projects-title">
     <div class="container">
       <header class="section-head section-head--split">
         <h1 id="projects-title" class="section-title">All projects</h1>
         <p class="section-intro">
-          Web platforms, Android apps, AI and voice agents, and the integrations between them. Each one opens into a case study with real screenshots.
+          Web platforms, Android apps, AI and voice agents, and the integrations between them, from our founder’s track record. Each one opens into a case
+          study with real screenshots.
         </p>
       </header>
       <ProjectGallery headingLevel="h2" />

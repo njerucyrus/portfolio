@@ -12,10 +12,12 @@ import { chromium } from 'playwright';
 const ROOT = path.resolve(import.meta.dirname, '..');
 const PUBLIC = path.join(ROOT, 'public');
 
+// The TripleFive254 Ventures mark (a T and a 5 sharing one top stroke).
+// Keep in step with src/components/Logo.astro.
 const mark = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="9" fill="#635BFF"/>
-  <path d="M14.5 10.4a6 6 0 1 0 0 11.2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
-  <path d="M17.6 21.6V10.4l7 11.2V10.4" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M7.5 9.5h17M11.5 9.5v13" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24.5 9.5h-7.2l-.7 5a4.6 4.6 0 1 1-.4 6.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 `;
 
@@ -55,9 +57,9 @@ const html = `<!doctype html>
   .phone img { display: block; width: 100%; border-radius: 21px; }
 </style></head><body>
   <div class="copy">
-    <div class="brand">${mark}Cyrus Njeru</div>
+    <div class="brand">${mark}TripleFive254 Ventures</div>
     <h1>Digital products, mobile apps &amp; AI&#8209;powered experiences.</h1>
-    <p>Full-Stack Software Developer · AI &amp; Voice Automation Engineer</p>
+    <p>Web, mobile &amp; AI development · Nairobi, Kenya</p>
   </div>
   <div class="list">Web applications<span>·</span>Android apps<span>·</span>AI agents<span>·</span>Voice automation</div>
   <div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="${screen}"></div>

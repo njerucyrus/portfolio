@@ -1,13 +1,31 @@
-// Central site settings. Everything personal that appears on the site
-// (contact details, profiles, the contact form's destination) is set here.
+// Central site settings. The business details, the founder, contact details,
+// profiles and the contact form's destination are all set here.
 
 export const site = {
-  name: 'Cyrus Njeru',
-  role: 'Full-Stack Software Developer',
-  headline: 'Full-Stack Software Developer | AI & Voice Automation Engineer',
+  name: 'TripleFive254 Ventures',
+  /** Short line used in page titles, the footer and the social image. */
+  tagline: 'Web, Mobile & AI Development',
   description:
-    'Cyrus Njeru is a full-stack software developer building web applications, Android apps, AI agents and voice automation systems that solve real-world problems.',
+    'TripleFive254 Ventures is a technology company in Nairobi, Kenya, building web applications, Android apps, AI agents and voice automation. Founded by Cyrus Njeru.',
   locale: 'en_GB',
+
+  /** Where the business is based. Shown in the footer and contact section, and given to search engines. */
+  location: {
+    city: 'Nairobi',
+    country: 'Kenya',
+    countryCode: 'KE',
+  },
+
+  founder: {
+    name: 'Cyrus Njeru',
+    title: 'Founder',
+    headline: 'Full-Stack Software Developer | AI & Voice Automation Engineer',
+    /**
+     * Founder photo, relative to /public. Built by `npm run images` from the photo
+     * downloaded by `npm run assets:fetch`. Leave empty to show no photo.
+     */
+    portrait: 'images/cyrus.webp',
+  },
 
   /**
    * Public contact email. Leave empty to hide every email button and link.
@@ -15,7 +33,7 @@ export const site = {
    */
   email: 'cyrus@macaws.ai',
 
-  /** Public profile URLs. Leave a value empty to hide that link everywhere. */
+  /** The founder's public profiles. Leave a value empty to hide that link everywhere. */
   social: {
     github: 'https://github.com/njerucyrus',
     linkedin: 'https://www.linkedin.com/in/njeru-cyrus/',
@@ -31,18 +49,12 @@ export const site = {
    * plainly that the form is not connected yet.
    */
   contactFormEndpoint: '',
-
-  /**
-   * Profile photo, relative to /public. Built by `npm run images` from the photo
-   * downloaded by `npm run assets:fetch`. Leave empty to show no photo.
-   */
-  portrait: 'images/cyrus.webp',
 } as const;
 
 export const nav = [
   { label: 'Home', hash: 'top' },
-  { label: 'Projects', hash: 'work' },
-  { label: 'Expertise', hash: 'expertise' },
+  { label: 'Work', hash: 'work' },
+  { label: 'Services', hash: 'services' },
   { label: 'About', hash: 'about' },
   { label: 'Contact', hash: 'contact' },
 ] as const;

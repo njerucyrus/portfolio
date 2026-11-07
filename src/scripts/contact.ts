@@ -61,7 +61,7 @@ function setup(form: HTMLFormElement) {
     if (email) {
       return `<a class="btn btn-dark btn-sm" href="${escape(mailto())}">Open it in your email app</a>`;
     }
-    if (github) return `For now, you can reach me through <a href="${escape(github)}" target="_blank" rel="noopener noreferrer">GitHub</a>.`;
+    if (github) return `For now, you can reach our founder through <a href="${escape(github)}" target="_blank" rel="noopener noreferrer">GitHub</a>.`;
     return '';
   };
 
@@ -102,7 +102,7 @@ function setup(form: HTMLFormElement) {
         body: JSON.stringify({ name: value('name'), email: value('email'), subject: value('subject'), message: value('message') }),
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      show('success', `<p><strong>Thanks, ${escape(value('name'))}. Your message has been sent.</strong> I’ll reply to ${escape(value('email'))}.</p>`);
+      show('success', `<p><strong>Thanks, ${escape(value('name'))}. Your message has been sent.</strong> We’ll reply to ${escape(value('email'))}.</p>`);
       form.reset();
       attempted = false;
       fields.forEach((name) => control(name).removeAttribute('aria-invalid'));

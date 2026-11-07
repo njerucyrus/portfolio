@@ -11,17 +11,21 @@ const { home = false } = Astro.props;
 const year = new Date().getFullYear();
 const links = [
   site.email && { label: 'Email', href: `mailto:${site.email}`, external: false },
-  site.social.github && { label: 'GitHub', href: site.social.github, external: true },
-  site.social.linkedin && { label: 'LinkedIn', href: site.social.linkedin, external: true },
+  site.social.linkedin && { label: 'Founder on LinkedIn', href: site.social.linkedin, external: true },
+  site.social.github && { label: 'Founder on GitHub', href: site.social.github, external: true },
 ].filter(Boolean) as { label: string; href: string; external: boolean }[];
+// The large name at the foot of the page breaks after the first word.
+const [firstWord, ...otherWords] = site.name.split(' ');
 ---
 
 <footer class="site-footer on-dark">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-intro">
-        <p class="footer-role">{site.role}</p>
-        <p class="footer-note">Web applications, Android apps, AI agents and voice automation.</p>
+        <p class="footer-role">{site.name}</p>
+        <p class="footer-note">
+          Web applications, Android apps, AI agents and voice automation, built in {site.location.city}, {site.location.country}.
+        </p>
       </div>
       <nav aria-label="Footer">
         <h2 class="footer-heading">Navigate</h2>
@@ -37,12 +41,12 @@ const links = [
         </ul>
       </nav>
       <div>
-        <h2 class="footer-heading">Elsewhere</h2>
+        <h2 class="footer-heading">Get in touch</h2>
         <ul role="list">
           {
             links.map((link) => (
               <li>
-                <a href={link.href} {...(link.external ? { target: '_blank', rel: 'me noopener noreferrer' } : {})}>
+                <a href={link.href} {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                   {link.label}
                   {link.external && <Icon name="arrow-up-right" size={14} />}
                   {link.external && <span class="sr-only">(opens in a new tab)</span>}
@@ -55,11 +59,14 @@ const links = [
       </div>
     </div>
 
-    <p class="footer-name" aria-hidden="true">{site.name}</p>
+    <p class="footer-name" aria-hidden="true">
+      <span>{firstWord}</span>
+      {otherWords.length > 0 && <span>{otherWords.join(' ')}</span>}
+    </p>
 
     <div class="footer-base">
       <p>© <span data-year>{year}</span> {site.name}. All rights reserved.</p>
-      <p>Designed and built with care.</p>
+      <p>{site.location.city}, {site.location.country}</p>
     </div>
   </div>
 </footer>
@@ -126,13 +133,17 @@ const links = [
 
   .footer-name {
     margin: clamp(56px, 8vw, 104px) 0 0;
-    font-size: clamp(3.5rem, 15.5vw, 15rem);
+    font-size: clamp(2.5rem, 12.5vw, 12.5rem);
     font-weight: 650;
     letter-spacing: -0.065em;
-    line-height: 0.95;
-    white-space: nowrap;
+    line-height: 0.92;
     color: var(--night-3);
     user-select: none;
+  }
+
+  .footer-name span {
+    display: block;
+    white-space: nowrap;
   }
 
   .footer-base {

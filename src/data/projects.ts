@@ -6,7 +6,10 @@
 // 26 October 2026. Technologies listed under `tags` and `stack` are only those
 // that could be confirmed from the outside (response headers, page source, store
 // listing). Add your own stack details (e.g. Kotlin, Jetpack Compose, Django)
-// once you have confirmed them, and fill in `role` to describe your part.
+// once you have confirmed them, and fill in `role` to describe the founder's part.
+//
+// These projects are presented as the founder's track record, not as client
+// work delivered by TripleFive254 Ventures, so write `role` in those terms.
 //
 // Image paths are relative to /public. Run `npm run images` after adding raw
 // screenshots; a missing image falls back to a labelled placeholder. A website's
@@ -57,7 +60,7 @@ export interface Project {
   overview: string[];
   purpose?: string;
   features: string[];
-  /** Your part in the project. Shown only when filled in. */
+  /** The founder's part in the project. Shown only when filled in. */
   role?: string[];
   implementation?: string[];
   stack: string[];
@@ -334,7 +337,7 @@ export const projects: Project[] = [
       'Checkout through Stripe payment links.',
     ],
     role: [
-      'I’m part of the Macaws.ai team on engineering: the integrations underneath the products, the part that makes Signal, Nexus and a business’s diary talk to each other.',
+      'Our founder, Cyrus Njeru, is part of the Macaws.ai engineering team, working on the integrations underneath the products: the part that makes Signal, Nexus and a business’s diary talk to each other.',
     ],
     implementation: [
       'Marketing site deployed on Vercel, with Signal, Nexus and the Google audit running on their own subdomains.',
@@ -572,7 +575,7 @@ export const projects: Project[] = [
     ground: '#101828',
     links: [{ kind: 'contact', label: 'Discuss an AI project', href: '#contact' }],
     overview: [
-      'I build AI agents and voice agents with Retell AI and integrate them into websites and business systems. A voice agent can answer a phone call or a website visitor, hold a natural conversation, and act on what it hears: look something up, book an appointment or pass the details on.',
+      'We build AI agents and voice agents with Retell AI and integrate them into websites and business systems. A voice agent can answer a phone call or a website visitor, hold a natural conversation, and act on what it hears: look something up, book an appointment or pass the details on.',
       'The work that makes an agent useful is usually the integration: giving it the right information during the call and making sure what it learns ends up in the systems the business already uses.',
     ],
     features: [
@@ -588,7 +591,7 @@ export const projects: Project[] = [
     ],
     note: 'This entry describes a capability rather than one named project. Screenshots, a demo, audio samples or an anonymised case study will be added here as they become available to share.',
     gallery: [],
-    related: [{ slug: 'macaws-ai', note: 'Signal, the AI receptionist I work on integrations for' }],
+    related: [{ slug: 'macaws-ai', note: 'Signal, the AI receptionist our founder works on integrations for' }],
     sources: [],
   },
 ];

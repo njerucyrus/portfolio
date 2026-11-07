@@ -16,20 +16,24 @@ const liveWeb = projects.filter((p) => p.categories.includes('web') && p.links.s
       <h2 id="about-title" class="section-title" data-reveal>Building software that makes a difference.</h2>
       <div class="about-text" data-reveal style="--i: 1">
         <p>
-          I’m a developer who enjoys solving problems through software. My work spans frontend interfaces, backend architecture, mobile applications,
-          AI-powered products, and integrations that connect systems together.
+          {site.name} builds software for businesses and organisations: web platforms, Android apps, AI-powered products, and the integrations that connect
+          systems together.
         </p>
         <p>
-          I focus on building solutions that are not only technically sound but also intuitive, maintainable, and useful to the people who rely on them.
+          We focus on solutions that are not only technically sound but also intuitive, maintainable, and useful to the people who rely on them.
+        </p>
+        <p>
+          The company was founded in {site.location.city} by {site.founder.name}, a full-stack software developer whose work spans frontend interfaces, backend
+          architecture, mobile applications, AI agents and voice automation.
         </p>
       </div>
       <dl class="about-facts" data-reveal style="--i: 2">
         <div>
-          <dt>Android apps live on Google Play</dt>
+          <dt>Android apps by our founder live on Google Play</dt>
           <dd>{onPlay}</dd>
         </div>
         <div>
-          <dt>Web products live in this portfolio</dt>
+          <dt>Live web products in our track record</dt>
           <dd>{liveWeb}</dd>
         </div>
       </dl>
@@ -39,12 +43,13 @@ const liveWeb = projects.filter((p) => p.categories.includes('web') && p.links.s
       <div class="profile" data-reveal>
         <Avatar size={112} decorative />
         <div>
-          <p class="profile-name">{site.name}</p>
-          <p class="profile-role">{site.headline}</p>
+          <p class="profile-kicker">{site.founder.title}</p>
+          <p class="profile-name">{site.founder.name}</p>
+          <p class="profile-role">{site.founder.headline}</p>
           <div class="profile-links">
             {
               site.social.linkedin && (
-                <a class="text-link" href={site.social.linkedin} target="_blank" rel="me noopener noreferrer">
+                <a class="text-link" href={site.social.linkedin} target="_blank" rel="noopener noreferrer">
                   LinkedIn
                   <Icon name="arrow-up-right" size={16} />
                   <span class="sr-only">(opens in a new tab)</span>
@@ -53,7 +58,7 @@ const liveWeb = projects.filter((p) => p.categories.includes('web') && p.links.s
             }
             {
               site.social.github && (
-                <a class="text-link" href={site.social.github} target="_blank" rel="me noopener noreferrer">
+                <a class="text-link" href={site.social.github} target="_blank" rel="noopener noreferrer">
                   <Icon name="github" size={16} />
                   GitHub
                   <span class="sr-only">(opens in a new tab)</span>
@@ -130,6 +135,8 @@ const liveWeb = projects.filter((p) => p.categories.includes('web') && p.links.s
   .about-facts div {
     display: flex;
     flex-direction: column-reverse;
+    /* Keeps the numbers level when the labels wrap to different lengths. */
+    justify-content: flex-end;
   }
 
   .about-facts dd {
@@ -161,6 +168,15 @@ const liveWeb = projects.filter((p) => p.categories.includes('web') && p.links.s
 
   .profile :global(.avatar) {
     border-radius: 28px;
+  }
+
+  .profile-kicker {
+    margin-bottom: 4px;
+    color: var(--accent-text);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .profile-name {
