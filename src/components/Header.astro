@@ -92,6 +92,12 @@ const { theme = 'light', home = false } = Astro.props;
     box-shadow: 0 1px 0 var(--night-border);
   }
 
+  /* Show the version of the mark that suits the header's current background. */
+  .site-header[data-theme='dark'] :global(.logo-on-light),
+  .site-header:not([data-theme='dark']) :global(.logo-on-dark) {
+    display: none;
+  }
+
   .header-inner {
     display: flex;
     align-items: center;
@@ -102,7 +108,7 @@ const { theme = 'light', home = false } = Astro.props;
   .wordmark {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     margin-right: auto;
     font-size: 1.0625rem;
     font-weight: 650;

@@ -12,23 +12,17 @@ import { chromium } from 'playwright';
 const ROOT = path.resolve(import.meta.dirname, '..');
 const PUBLIC = path.join(ROOT, 'public');
 
-// The TripleFive254 Ventures mark (a T and a 5 sharing one top stroke).
-// Keep in step with src/components/Logo.astro.
-const mark = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="9" fill="#635BFF"/>
-  <path d="M7.5 9.5h17M11.5 9.5v13" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M24.5 9.5h-7.2l-.7 5a4.6 4.6 0 1 1-.4 6.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-`;
+// The T5 logo files live in public/brand/ (copies of the master files in brand/,
+// cropped to the mark's edges). t5-icon.svg is the mark on a square navy tile.
+const icon = await fs.readFile(path.join(PUBLIC, 'brand/t5-icon.svg'), 'utf8');
+const markOnDark = await fs.readFile(path.join(PUBLIC, 'brand/t5-mark-reversed.svg'));
 
-await fs.writeFile(path.join(PUBLIC, 'favicon.svg'), mark);
-await sharp(Buffer.from(mark), { density: 384 }).resize(32, 32).png().toFile(path.join(PUBLIC, 'favicon-32.png'));
-// Apple touch icons are shown on a square tile, so give the mark some padding.
-const touch = await sharp(Buffer.from(mark), { density: 768 }).resize(140, 140).png().toBuffer();
-await sharp({ create: { width: 180, height: 180, channels: 4, background: '#635BFF' } })
-  .composite([{ input: touch, left: 20, top: 20 }])
-  .png()
-  .toFile(path.join(PUBLIC, 'apple-touch-icon.png'));
+// Browser tabs get the tile with rounded corners; iOS rounds the touch icon itself.
+const tileSize = Number(icon.match(/<rect[^>]*\swidth="([\d.]+)"/)[1]);
+const favicon = icon.replace('<rect ', `<rect rx="${(tileSize * 0.22).toFixed(1)}" `);
+await fs.writeFile(path.join(PUBLIC, 'favicon.svg'), favicon);
+await sharp(Buffer.from(favicon), { density: 600 }).resize(32, 32).png().toFile(path.join(PUBLIC, 'favicon-32.png'));
+await sharp(Buffer.from(icon), { density: 600 }).resize(180, 180).flatten({ background: '#0A2463' }).png().toFile(path.join(PUBLIC, 'apple-touch-icon.png'));
 console.log('✓ favicon.svg, favicon-32.png, apple-touch-icon.png');
 
 // Inlined as data URIs: a page built with setContent cannot read local files.
@@ -44,7 +38,7 @@ const html = `<!doctype html>
   body { width: 1200px; height: 630px; overflow: hidden; background: #0b1020; color: #f5f7fb; font-family: Geist, sans-serif; position: relative; }
   .copy { position: absolute; left: 72px; top: 68px; width: 540px; }
   .brand { display: flex; align-items: center; gap: 14px; font-size: 26px; font-weight: 650; letter-spacing: -0.02em; }
-  .brand svg { width: 44px; height: 44px; }
+  .brand img { height: 48px; width: auto; }
   h1 { margin-top: 56px; font-size: 54px; line-height: 1.04; letter-spacing: -0.045em; font-weight: 600; }
   p { margin-top: 22px; font-size: 22px; color: #a6aec4; line-height: 1.4; }
   .list { position: absolute; left: 72px; bottom: 64px; font-size: 20px; color: #f5f7fb; }
@@ -57,7 +51,7 @@ const html = `<!doctype html>
   .phone img { display: block; width: 100%; border-radius: 21px; }
 </style></head><body>
   <div class="copy">
-    <div class="brand">${mark}TripleFive254 Ventures</div>
+    <div class="brand"><img src="data:image/svg+xml;base64,${markOnDark.toString('base64')}" alt="">TripleFive254 Ventures</div>
     <h1>Digital products, mobile apps &amp; AI&#8209;powered experiences.</h1>
     <p>Web, mobile &amp; AI development · Nairobi, Kenya</p>
   </div>

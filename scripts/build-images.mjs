@@ -119,7 +119,7 @@ const covers = {
         return sharp(resized).extract({ left: Math.round((width - panelWidth) / 2), top: 0, width: panelWidth, height: H }).png().toBuffer();
       }),
     );
-    return sharp({ create: { width: W, height: H, channels: 3, background: '#0a4b45' } })
+    return sharp({ create: { width: W, height: H, channels: 3, background: '#15675f' } })
       .composite(panels.map((input, i) => ({ input, left: i * panelWidth, top: 0 })))
       .png()
       .toBuffer();

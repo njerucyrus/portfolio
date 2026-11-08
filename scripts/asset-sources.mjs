@@ -30,14 +30,14 @@ export const playApps = {
   'inr-notebook': {
     packageId: 'com.inrnotebook.app',
     shots: {
-      'inr-chart': play('Od3PyhRPwlohIUq2li6Bu594zU81at3Jce_QAIn-YGPgXFpPvPc96sXRKLWW4aptQvow5EJRor-Atc4tSO6b'),
-      home: play('VR5tOZgFf55O2wRcGg9bhizgp32MGBCVlsRvRK_CEyL_rWcA-4SAF5Zb1JOU2CDV4xpMMcnrJCb9PfH2ulalUpQ'),
-      warfarin: play('TslJ_3IbTgv1ZTNT09yJwWmDkElAXBujcg9OsY9JGsr8zkXusbBgBSd23rjbtj1dn8VJAPx9LIbCNVnnAlWBOg'),
-      clinic: play('RTjH-edtUXowDsOgO2jMKxmHGrDubW4u93mhlOLpptCLlVIDfaP4nQCUF9j8VKOf0XwhrNFJNnbm00E-kZejFik'),
-      'vitamin-k': play('0_Cft_5KxtSOZrzFUmePYwTSq4byNuB0GHl-2bV36TXvIuydTYana1rEu7SaT-BEX2X6E2E2kbdWc2tHxigc'),
-      diary: play('249Es-62dOA5Zi1p9XLffNMozAMPpxi4KnRLCs9pqYnWeIxNi4nHtV5zHiA-1R1TsywTA9O9tYgnnGKwr4DtkFI'),
-      safety: play('uHDnXSyokOhbbgdrU2jS6B0xp7_sCT9h_HGO0L0ommI5BAv3kHppB54G8rGCG7aO2e2_GvkEDtp_P783EeTs'),
-      food: play('NWnhexxWpogmollzSIQo8CnezRJffZ0rXBwsmDBFX2z5mAmSqDBh9rbQV_Ow1FqQARl0HLHNNa8PvDBWVWwYOg'),
+      home: play('CgvllM8EDf55eg4ll7_Gq-FGINZw2trEox2OwMKW3FKC_yMLnomfC_Dv6_SApMf_eDXWR6aioHY99j8kDkxnlXs'),
+      'inr-chart': play('LcwnGhv-2Ke1ao9KnAUqRO8nhNUchjTHHaPzPfAm_1s4ENBn0MgBnvtWQtQ4nsOfLP8EPjcZqPTuqIrPQLMi7g'),
+      warfarin: play('ZKwmxshku8F4aC_PFMniQbZHf16nc3Fwx6oAp5JX96mYCEuTa_RI3l7UkC1m2ruftbyInJ0-80IhXDllrnTxQw'),
+      vitals: play('S6hnYUXz_ny8Epd0te4wB6X7jZ_ALFDlo_7n64Ke9MMzAZ7lobgFQdmE1VZ2TWCAPWzQAGxSCpJ1UfYU4yvhtQ'),
+      'meal-plan': play('YATs-aWcVDg7ZcHrlWsjzHXqH6FODwjnCvBn9bhOC91oQKqdp166IhFFvydNzWgM89kvFhqR7Ts5aYCGe2Zu'),
+      food: play('TaZk7F0VT6NCeWeHWjbSTvQvdE7iG6z_K7EqbhRFyoWAbBhH_ZmPOXL3a4N57-VWc-EQWHyI_4tcSz86HkOm'),
+      clinic: play('2O6O91oqz8Ojcmq7rAMfZ8TgAkYmIdJKXhsI56jjH3GxXgh7cNXt4UMaOPSqSCo3WCs0R5l9TpYKBZTd6ZKvtA'),
+      safety: play('7KeNy1vLpAIprL6qgzEtJ2mI4gZAglYZy3kVDFP-GG0nRCYCOoXQlbtUHU7q3itTsu7qrSKrz-sdFr3PUits3JA'),
     },
   },
   'novia-digital-scan': {

@@ -199,20 +199,6 @@
       }
     ]
   },
-  "images/projects/inr-notebook/diary.webp": {
-    "width": 720,
-    "height": 1280,
-    "variants": [
-      {
-        "width": 360,
-        "src": "images/projects/inr-notebook/diary-360.webp"
-      },
-      {
-        "width": 720,
-        "src": "images/projects/inr-notebook/diary.webp"
-      }
-    ]
-  },
   "images/projects/inr-notebook/food.webp": {
     "width": 720,
     "height": 1280,
@@ -255,6 +241,20 @@
       }
     ]
   },
+  "images/projects/inr-notebook/meal-plan.webp": {
+    "width": 720,
+    "height": 1280,
+    "variants": [
+      {
+        "width": 360,
+        "src": "images/projects/inr-notebook/meal-plan-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "images/projects/inr-notebook/meal-plan.webp"
+      }
+    ]
+  },
   "images/projects/inr-notebook/safety.webp": {
     "width": 720,
     "height": 1280,
@@ -269,17 +269,17 @@
       }
     ]
   },
-  "images/projects/inr-notebook/vitamin-k.webp": {
+  "images/projects/inr-notebook/vitals.webp": {
     "width": 720,
     "height": 1280,
     "variants": [
       {
         "width": 360,
-        "src": "images/projects/inr-notebook/vitamin-k-360.webp"
+        "src": "images/projects/inr-notebook/vitals-360.webp"
       },
       {
         "width": 720,
-        "src": "images/projects/inr-notebook/vitamin-k.webp"
+        "src": "images/projects/inr-notebook/vitals.webp"
       }
     ]
   },

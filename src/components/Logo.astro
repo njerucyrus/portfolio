@@ -1,20 +1,30 @@
 ---
-// The TripleFive254 Ventures mark: a T and a 5 sharing one top stroke, on an
-// indigo tile. Keep in step with `mark` in scripts/build-brand.mjs.
+// The TripleFive254 T5 mark. Two versions are rendered and the header shows the
+// one that suits its current background: `logo-on-light` (navy-to-blue T) on light,
+// `logo-on-dark` (brighter blues) on dark. The files live in public/brand/ and
+// are copies of brand/triplefive254-mark*.svg cropped to the mark's edges.
+import { url } from '../lib/url';
+
 interface Props {
+  /** Height in px; the width follows the mark's 4:3 shape. */
   size?: number;
 }
-const { size = 30 } = Astro.props;
+const { size = 34 } = Astro.props;
+const width = Math.round(size * 1.3321);
 ---
 
-<svg class="logo" width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-  <rect width="32" height="32" rx="9" fill="#635BFF"></rect>
-  <path d="M7.5 9.5h17M11.5 9.5v13" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
-  <path d="M24.5 9.5h-7.2l-.7 5a4.6 4.6 0 1 1-.4 6.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
+<span class="logo" aria-hidden="true">
+  <img class="logo-on-light" src={url('brand/t5-mark.svg')} width={width} height={size} alt="" decoding="async" />
+  <img class="logo-on-dark" src={url('brand/t5-mark-reversed.svg')} width={width} height={size} alt="" decoding="async" />
+</span>
 
 <style>
   .logo {
+    display: inline-flex;
     flex: none;
+  }
+
+  .logo img {
+    display: block;
   }
 </style>

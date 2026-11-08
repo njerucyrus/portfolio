@@ -34,7 +34,7 @@ npm run preview    # serves dist/
 | Projects (text, links, tags, screenshots, order) | `src/data/projects.ts` |
 | Filter categories | `src/data/categories.ts` |
 | Skills, service cards, process steps, about highlights | `src/data/skills.ts` |
-| Logo mark | `src/components/Logo.astro` and `mark` in `scripts/build-brand.mjs` (then `npm run brand`) |
+| Logo | Master files in `brand/` (SVG and PNG, plus Google Play assets in `brand/google-play/`). The site uses the cropped copies in `public/brand/`; after changing them, run `npm run brand` to rebuild the favicons and social image |
 | Colours, type scale, spacing | `src/styles/global.css` (tokens at the top) |
 | Image sources (Play screenshots, pages to capture) | `scripts/asset-sources.mjs` |
 
